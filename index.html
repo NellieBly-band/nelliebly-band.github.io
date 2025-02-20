@@ -4,62 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nellie Bly - Music</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .album {
+            margin-bottom: 40px;
+        }
+        .track {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .track button {
+            margin-right: 10px;
+        }
+        .download {
+            margin-left: 10px;
+        }
+        .album-cover {
+            max-width: 300px;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Nellie Bly - Music</h1>
-    </header>
+    <h1>Nellie Bly - Music</h1>
     
-    <section class="album" id="unfamiliarity">
-        <img src="artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover">
+    <div class="album">
+        <img src="artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover" class="album-cover">
         <h2>Unfamiliarity</h2>
-        <a href="music/Unfamiliarity.zip" class="download-btn">Download Full EP</a>
+        <a href="music/Unfamiliarity.zip" download>Download Full EP</a>
         <ul>
-            <li>01 Outlier <button onclick="playTrack('music/Unfamiliarity/01-outlier.mp3')">▶</button> <a href="music/Unfamiliarity/01-outlier.mp3" download>⬇</a></li>
-            <li>02 Nothing Could Be Something <button onclick="playTrack('music/Unfamiliarity/02-nothing-could-be-something.mp3')">▶</button> <a href="music/Unfamiliarity/02-nothing-could-be-something.mp3" download>⬇</a></li>
-            <li>03 Holding Hands Through Rubber Gloves <button onclick="playTrack('music/Unfamiliarity/03-holding-hands-through-rubber-gloves.mp3')">▶</button> <a href="music/Unfamiliarity/03-holding-hands-through-rubber-gloves.mp3" download>⬇</a></li>
-            <li>04 Lenny, Your Shoes Are Too Small <button onclick="playTrack('music/Unfamiliarity/04-lenny-your-shoes-are-too-small.mp3')">▶</button> <a href="music/Unfamiliarity/04-lenny-your-shoes-are-too-small.mp3" download>⬇</a></li>
-            <li>05 Text About The Weekend <button onclick="playTrack('music/Unfamiliarity/05-text-about-the-weekend.mp3')">▶</button> <a href="music/Unfamiliarity/05-text-about-the-weekend.mp3" download>⬇</a></li>
-            <li>06 I Hate You, But Happy Birthday <button onclick="playTrack('music/Unfamiliarity/06-i-hate-you-but-happy-birthday.mp3')">▶</button> <a href="music/Unfamiliarity/06-i-hate-you-but-happy-birthday.mp3" download>⬇</a></li>
-            <li>07 I Hope You Think Of Me <button onclick="playTrack('music/Unfamiliarity/07-i-hope-you-think-of-me.mp3')">▶</button> <a href="music/Unfamiliarity/07-i-hope-you-think-of-me.mp3" download>⬇</a></li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/01_Outlier.mp3')">▶</button>
+                01 Outlier <a href="music/Unfamiliarity/01_Outlier.mp3" download class="download">⬇</a>
+            </li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/02_Nothing_Could_Be_Something.mp3')">▶</button>
+                02 Nothing Could Be Something <a href="music/Unfamiliarity/02_Nothing_Could_Be_Something.mp3" download class="download">⬇</a>
+            </li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/03_Holding_Hands_Through_Rubber_Gloves.mp3')">▶</button>
+                03 Holding Hands Through Rubber Gloves <a href="music/Unfamiliarity/03_Holding_Hands_Through_Rubber_Gloves.mp3" download class="download">⬇</a>
+            </li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/04_Lenny_Your_Shoes_Are_Too_Small.mp3')">▶</button>
+                04 Lenny, Your Shoes Are Too Small <a href="music/Unfamiliarity/04_Lenny_Your_Shoes_Are_Too_Small.mp3" download class="download">⬇</a>
+            </li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/05_Text_About_The_Weekend.mp3')">▶</button>
+                05 Text About The Weekend <a href="music/Unfamiliarity/05_Text_About_The_Weekend.mp3" download class="download">⬇</a>
+            </li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/06_I_Hate_You_But_Happy_Birthday.mp3')">▶</button>
+                06 I Hate You, But Happy Birthday <a href="music/Unfamiliarity/06_I_Hate_You_But_Happy_Birthday.mp3" download class="download">⬇</a>
+            </li>
+            <li class="track">
+                <button onclick="playTrack('music/Unfamiliarity/07_I_Hope_You_Think_Of_Me.mp3')">▶</button>
+                07 I Hope You Think Of Me <a href="music/Unfamiliarity/07_I_Hope_You_Think_Of_Me.mp3" download class="download">⬇</a>
+            </li>
         </ul>
-    </section>
-    
-    <section class="album" id="there-is-no-place-like-here-and-now">
-        <img src="artwork/there-is-no-place-like-here-and-now.jpg" alt="There Is No Place Like Here, And Now Album Cover">
-        <h2>There Is No Place Like Here, And Now</h2>
-        <a href="music/There-Is-No-Place-Like-Here-And-Now.zip" class="download-btn">Download Full EP</a>
-        <ul>
-            <li>01 The Process <button onclick="playTrack('music/There-Is-No-Place-Like-Here-And-Now/01-the-process.mp3')">▶</button> <a href="music/There-Is-No-Place-Like-Here-And-Now/01-the-process.mp3" download>⬇</a></li>
-            <li>02 There's No Place Like Here, And Now <button onclick="playTrack('music/There-Is-No-Place-Like-Here-And-Now/02-theres-no-place-like-here-and-now.mp3')">▶</button> <a href="music/There-Is-No-Place-Like-Here-And-Now/02-theres-no-place-like-here-and-now.mp3" download>⬇</a></li>
-            <li>03 Monday 10:39 PM <button onclick="playTrack('music/There-Is-No-Place-Like-Here-And-Now/03-monday-1039-pm.mp3')">▶</button> <a href="music/There-Is-No-Place-Like-Here-And-Now/03-monday-1039-pm.mp3" download>⬇</a></li>
-            <li>04 Everything's Going In Weird Directions <button onclick="playTrack('music/There-Is-No-Place-Like-Here-And-Now/04-everythings-going-in-weird-directions.mp3')">▶</button> <a href="music/There-Is-No-Place-Like-Here-And-Now/04-everythings-going-in-weird-directions.mp3" download>⬇</a></li>
-            <li>05 My Happy Song <button onclick="playTrack('music/There-Is-No-Place-Like-Here-And-Now/05-my-happy-song.mp3')">▶</button> <a href="music/There-Is-No-Place-Like-Here-And-Now/05-my-happy-song.mp3" download>⬇</a></li>
-            <li>06 Summer Scars <button onclick="playTrack('music/There-Is-No-Place-Like-Here-And-Now/06-summer-scars.mp3')">▶</button> <a href="music/There-Is-No-Place-Like-Here-And-Now/06-summer-scars.mp3" download>⬇</a></li>
-        </ul>
-    </section>
-    
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" src="" type="audio/mp3">
+    </div>
+
+    <audio id="audio-player" controls style="width: 100%; margin-top: 20px;">
+        <source id="audio-source" src="" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    
+
     <script>
-        function playTrack(track) {
-            let audioPlayer = document.getElementById('audioPlayer');
-            let audioSource = document.getElementById('audioSource');
-            if (audioSource.src.endsWith(track)) {
-                if (audioPlayer.paused) {
-                    audioPlayer.play();
-                } else {
-                    audioPlayer.pause();
-                }
-            } else {
-                audioSource.src = track;
-                audioPlayer.load();
-                audioPlayer.play();
-            }
+        function playTrack(trackSrc) {
+            var audioPlayer = document.getElementById("audio-player");
+            var audioSource = document.getElementById("audio-source");
+            audioSource.src = trackSrc;
+            audioPlayer.load();
+            audioPlayer.play();
         }
     </script>
 </body>
