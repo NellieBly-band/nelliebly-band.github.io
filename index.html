@@ -1,85 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nellie Bly - Music</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .album {
-            margin-bottom: 40px;
-        }
-        .track {
-            display: flex;
-            align-items: center;
-            margin: 5px 0;
-        }
-        .track button {
-            margin-right: 10px;
-        }
-        .download {
-            margin-left: 10px;
-        }
-        .album-cover {
-            max-width: 300px;
-            display: block;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
     <h1>Nellie Bly - Music</h1>
-    
-    <div class="album">
-        <img src="artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover" class="album-cover">
-        <h2>Unfamiliarity</h2>
-        <a href="music/Unfamiliarity.zip" download>Download Full EP</a>
-        <ul>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/01_Outlier.mp3')">▶</button>
-                01 Outlier <a href="music/Unfamiliarity/01_Outlier.mp3" download class="download">⬇</a>
-            </li>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/02_Nothing_Could_Be_Something.mp3')">▶</button>
-                02 Nothing Could Be Something <a href="music/Unfamiliarity/02_Nothing_Could_Be_Something.mp3" download class="download">⬇</a>
-            </li>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/03_Holding_Hands_Through_Rubber_Gloves.mp3')">▶</button>
-                03 Holding Hands Through Rubber Gloves <a href="music/Unfamiliarity/03_Holding_Hands_Through_Rubber_Gloves.mp3" download class="download">⬇</a>
-            </li>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/04_Lenny_Your_Shoes_Are_Too_Small.mp3')">▶</button>
-                04 Lenny, Your Shoes Are Too Small <a href="music/Unfamiliarity/04_Lenny_Your_Shoes_Are_Too_Small.mp3" download class="download">⬇</a>
-            </li>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/05_Text_About_The_Weekend.mp3')">▶</button>
-                05 Text About The Weekend <a href="music/Unfamiliarity/05_Text_About_The_Weekend.mp3" download class="download">⬇</a>
-            </li>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/06_I_Hate_You_But_Happy_Birthday.mp3')">▶</button>
-                06 I Hate You, But Happy Birthday <a href="music/Unfamiliarity/06_I_Hate_You_But_Happy_Birthday.mp3" download class="download">⬇</a>
-            </li>
-            <li class="track">
-                <button onclick="playTrack('music/Unfamiliarity/07_I_Hope_You_Think_Of_Me.mp3')">▶</button>
-                07 I Hope You Think Of Me <a href="music/Unfamiliarity/07_I_Hope_You_Think_Of_Me.mp3" download class="download">⬇</a>
-            </li>
-        </ul>
-    </div>
 
-    <audio id="audio-player" controls style="width: 100%; margin-top: 20px;">
-        <source id="audio-source" src="" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <section>
+        <h2>Unfamiliarity</h2>
+        <img src="assets/artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover">
+        <a href="assets/music/Unfamiliarity.zip">Download Full EP</a>
+        <ul>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/01-outlier.mp3')">▶</button> 01 Outlier <a href="assets/music/Unfamiliarity/01-outlier.mp3">⬇</a></li>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/02-nothing-could-be-something.mp3')">▶</button> 02 Nothing Could Be Something <a href="assets/music/Unfamiliarity/02-nothing-could-be-something.mp3">⬇</a></li>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/03-holding-hands-through-rubber-gloves.mp3')">▶</button> 03 Holding Hands Through Rubber Gloves <a href="assets/music/Unfamiliarity/03-holding-hands-through-rubber-gloves.mp3">⬇</a></li>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/04-lenny-your-shoes-are-too-small.mp3')">▶</button> 04 Lenny, Your Shoes Are Too Small <a href="assets/music/Unfamiliarity/04-lenny-your-shoes-are-too-small.mp3">⬇</a></li>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/05-text-about-the-weekend.mp3')">▶</button> 05 Text About The Weekend <a href="assets/music/Unfamiliarity/05-text-about-the-weekend.mp3">⬇</a></li>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/06-i-hate-you-but-happy-birthday.mp3')">▶</button> 06 I Hate You, But Happy Birthday <a href="assets/music/Unfamiliarity/06-i-hate-you-but-happy-birthday.mp3">⬇</a></li>
+            <li><button onclick="playSong('assets/music/Unfamiliarity/07-i-hope-you-think-of-me.mp3')">▶</button> 07 I Hope You Think Of Me <a href="assets/music/Unfamiliarity/07-i-hope-you-think-of-me.mp3">⬇</a></li>
+        </ul>
+    </section>
+
+    <audio id="audioPlayer" controls></audio>
 
     <script>
-        function playTrack(trackSrc) {
-            var audioPlayer = document.getElementById("audio-player");
-            var audioSource = document.getElementById("audio-source");
-            audioSource.src = trackSrc;
-            audioPlayer.load();
-            audioPlayer.play();
+        let currentAudio = document.getElementById("audioPlayer");
+
+        function playSong(src) {
+            if (currentAudio.src !== src) {
+                currentAudio.src = src;
+                currentAudio.play();
+            } else if (currentAudio.paused) {
+                currentAudio.play();
+            } else {
+                currentAudio.pause();
+            }
         }
     </script>
 </body>
