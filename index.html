@@ -1,12 +1,37 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nellie Bly</title>
+    <title>Nellie Bly - Music</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to Nellie Bly's Official Website!</h1>
-    <p>We're Nellie Bly, and this is our official website. More coming soon!</p>
+    <h1>Nellie Bly - Music</h1>
+    
+    <section>
+        <h2>Unfamiliarity</h2>
+        <img src="assets/artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Art">
+        <ul>
+            <li><button onclick="playSong('music/Unfamiliarity/01 - Outlier - Unfamiliarity - Nellie Bly.mp3')">Outlier</button></li>
+            <li><button onclick="playSong('music/Unfamiliarity/02 - Nothing Could Be Something - Unfamiliarity - Nellie Bly.mp3')">Nothing Could Be Something</button></li>
+            <li><button onclick="playSong('music/Unfamiliarity/03 - Holding Hands Through Rubber Gloves - Unfamiliarity - Nellie Bly.mp3')">Holding Hands Through Rubber Gloves</button></li>
+            <li><button onclick="playSong('music/Unfamiliarity/04 - Lenny, Your Shoes Are Too Small - Unfamiliarity - Nellie Bly.mp3')">Lenny, Your Shoes Are Too Small</button></li>
+            <li><button onclick="playSong('music/Unfamiliarity/05 - Text About The Weekend - Unfamiliarity - Nellie Bly.mp3')">Text About The Weekend</button></li>
+            <li><button onclick="playSong('music/Unfamiliarity/06 - I Hate You, But Happy Birthday - Unfamiliarity - Nellie Bly.mp3')">I Hate You, But Happy Birthday</button></li>
+            <li><button onclick="playSong('music/Unfamiliarity/07 - i hope you think of me when you close your eyes (because i think of you) - Unfamiliarity - Nellie Bly.mp3')">i hope you think of me when you close your eyes</button></li>
+        </ul>
+    </section>
+    
+    <audio id="audioPlayer" controls></audio>
+    
+    <script>
+        function playSong(songPath) {
+            var player = document.getElementById('audioPlayer');
+            player.src = songPath;
+            player.play();
+        }
+    </script>
 </body>
 </html>
