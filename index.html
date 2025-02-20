@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,30 +7,55 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Nellie Bly - Music</h1>
+    <header>
+        <h1>Nellie Bly - Music</h1>
+    </header>
     
-    <section>
-        <h2>Unfamiliarity</h2>
-        <img src="assets/artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Art">
-        <ul>
-            <li><button onclick="playSong('music/Unfamiliarity/01 - Outlier - Unfamiliarity - Nellie Bly.mp3')">Outlier</button></li>
-            <li><button onclick="playSong('music/Unfamiliarity/02 - Nothing Could Be Something - Unfamiliarity - Nellie Bly.mp3')">Nothing Could Be Something</button></li>
-            <li><button onclick="playSong('music/Unfamiliarity/03 - Holding Hands Through Rubber Gloves - Unfamiliarity - Nellie Bly.mp3')">Holding Hands Through Rubber Gloves</button></li>
-            <li><button onclick="playSong('music/Unfamiliarity/04 - Lenny, Your Shoes Are Too Small - Unfamiliarity - Nellie Bly.mp3')">Lenny, Your Shoes Are Too Small</button></li>
-            <li><button onclick="playSong('music/Unfamiliarity/05 - Text About The Weekend - Unfamiliarity - Nellie Bly.mp3')">Text About The Weekend</button></li>
-            <li><button onclick="playSong('music/Unfamiliarity/06 - I Hate You, But Happy Birthday - Unfamiliarity - Nellie Bly.mp3')">I Hate You, But Happy Birthday</button></li>
-            <li><button onclick="playSong('music/Unfamiliarity/07 - i hope you think of me when you close your eyes (because i think of you) - Unfamiliarity - Nellie Bly.mp3')">i hope you think of me when you close your eyes</button></li>
+    <section class="album">
+        <img src="assets/artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover" class="album-art">
+        <div class="album-info">
+            <h2>Unfamiliarity</h2>
+            <a href="assets/music/Unfamiliarity.zip" class="download-btn">Download Full EP</a>
+        </div>
+        <ul class="tracklist">
+            <li>
+                Outlier
+                <button class="play-btn" data-src="assets/music/Unfamiliarity/01_outlier.mp3">▶</button>
+                <a href="assets/music/Unfamiliarity/01_outlier.mp3" class="download-track">⬇</a>
+            </li>
+            <li>
+                Nothing Could Be Something
+                <button class="play-btn" data-src="assets/music/Unfamiliarity/02_nothing_could_be_something.mp3">▶</button>
+                <a href="assets/music/Unfamiliarity/02_nothing_could_be_something.mp3" class="download-track">⬇</a>
+            </li>
+            <!-- Add other tracks here in the same format -->
         </ul>
     </section>
     
-    <audio id="audioPlayer" controls></audio>
+    <audio id="audio-player" controls>
+        <source id="audio-source" src="" type="audio/mp3">
+    </audio>
     
     <script>
-        function playSong(songPath) {
-            var player = document.getElementById('audioPlayer');
-            player.src = songPath;
-            player.play();
-        }
+        const player = document.getElementById("audio-player");
+        const source = document.getElementById("audio-source");
+        const buttons = document.querySelectorAll(".play-btn");
+        
+        buttons.forEach(button => {
+            button.addEventListener("click", function() {
+                if (source.src.includes(this.dataset.src)) {
+                    if (player.paused) {
+                        player.play();
+                    } else {
+                        player.pause();
+                    }
+                } else {
+                    source.src = this.dataset.src;
+                    player.load();
+                    player.play();
+                }
+            });
+        });
     </script>
 </body>
 </html>
