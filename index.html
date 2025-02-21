@@ -145,7 +145,7 @@
         document.querySelectorAll('.track button').forEach((btn, index) => {
             tracks.push({
                 src: btn.getAttribute('onclick').match(/'(.*?)'/)[1],
-                title: btn.parentElement.textContent.trim(),
+                title: btn.parentElement.childNodes[1].textContent.trim(),
                 artwork: btn.closest('.album').querySelector('img').src
             });
             btn.addEventListener('click', () => playTrack(index));
