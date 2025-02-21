@@ -43,12 +43,23 @@
             justify-content: space-between;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
-        .sticky-player button {
+        .sticky-player button, .sticky-player input[type="range"] {
             margin-right: 10px;
         }
-        .sticky-player input[type="range"] {
+        .sticky-player img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .sticky-player .controls {
+            display: flex;
+            align-items: center;
+        }
+        .sticky-player .track-info {
+            display: flex;
+            align-items: center;
             flex: 1;
-            margin: 0 10px;
         }
     </style>
 </head>
@@ -59,63 +70,67 @@
         <img src="assets/artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover">
         <a href="assets/music/03-unfamiliarity/unfamiliarity.zip" download>Download Full EP</a>
         <div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/01-outlier.mp3', this)">▶</button> 01 Outlier <a href="assets/music/03-unfamiliarity/01-outlier.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/02-nothing-could-be-something.mp3', this)">▶</button> 02 Nothing Could Be Something <a href="assets/music/03-unfamiliarity/02-nothing-could-be-something.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/03-holding-hands-through-rubber-gloves.mp3', this)">▶</button> 03 Holding Hands Through Rubber Gloves <a href="assets/music/03-unfamiliarity/03-holding-hands-through-rubber-gloves.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/04-lenny-your-shoes-are-too-small.mp3', this)">▶</button> 04 Lenny, Your Shoes Are Too Small <a href="assets/music/03-unfamiliarity/04-lenny-your-shoes-are-too-small.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/05-text-about-the-weekend.mp3', this)">▶</button> 05 Text About The Weekend <a href="assets/music/03-unfamiliarity/05-text-about-the-weekend.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/06-i-hate-you-but-happy-birthday.mp3', this)">▶</button> 06 I Hate You, But Happy Birthday <a href="assets/music/03-unfamiliarity/06-i-hate-you-but-happy-birthday.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/07-i-hope-you-think-of-me.mp3', this)">▶</button> 07 I Hope You Think Of Me <a href="assets/music/03-unfamiliarity/07-i-hope-you-think-of-me.mp3" download>⬇</a></div>
-        </div>
-    </div>
-    
-    <div class="album">
-        <img src="assets/artwork/theres-no-place-like-here-and-now.jpg" alt="There's No Place Like Here, And Now Album Cover">
-        <a href="assets/music/02-theres-no-place-like-here-and-now/theres-no-place-like-here-and-now.zip" download>Download Full EP</a>
-        <div>
-            <div class="track"><button onclick="playTrack('assets/music/02-theres-no-place-like-here-and-now/01-the-process.mp3', this)">▶</button> 01 The Process <a href="assets/music/02-theres-no-place-like-here-and-now/01-the-process.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/02-theres-no-place-like-here-and-now/02-theres-no-place-like-here-and-now.mp3', this)">▶</button> 02 There's No Place Like Here, And Now <a href="assets/music/02-theres-no-place-like-here-and-now/02-theres-no-place-like-here-and-now.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/02-theres-no-place-like-here-and-now/03-monday-1039-pm.mp3', this)">▶</button> 03 Monday 10:39 PM <a href="assets/music/02-theres-no-place-like-here-and-now/03-monday-1039-pm.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/02-theres-no-place-like-here-and-now/04-everythings-going-in-weird-directions.mp3', this)">▶</button> 04 Everything's Going In Weird Directions <a href="assets/music/02-theres-no-place-like-here-and-now/04-everythings-going-in-weird-directions.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/02-theres-no-place-like-here-and-now/05-my-happy-song.mp3', this)">▶</button> 05 My Happy Song <a href="assets/music/02-theres-no-place-like-here-and-now/05-my-happy-song.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/02-theres-no-place-like-here-and-now/06-summer-scars.mp3', this)">▶</button> 06 Summer Scars <a href="assets/music/02-theres-no-place-like-here-and-now/06-summer-scars.mp3" download>⬇</a></div>
-        </div>
-    </div>
-
-    <div class="album">
-        <img src="assets/artwork/n0t-s3lf-t1tl3d.jpg" alt="N0T S3LF T1TL3D Album Cover">
-        <a href="assets/music/01-n0t-s3lf-t1tl3d/n0t-s3lf-t1tl3d.zip" download>Download Full EP</a>
-        <div>
-            <div class="track"><button onclick="playTrack('assets/music/01-n0t-s3lf-t1tl3d/01-scrapbook.mp3', this)">▶</button> 01 Scrapbook <a href="assets/music/01-n0t-s3lf-t1tl3d/01-scrapbook.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/01-n0t-s3lf-t1tl3d/02-52-backwards.mp3', this)">▶</button> 02 52 Backwards <a href="assets/music/01-n0t-s3lf-t1tl3d/02-52-backwards.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/01-n0t-s3lf-t1tl3d/03-disappeared.mp3', this)">▶</button> 03 Disappeared <a href="assets/music/01-n0t-s3lf-t1tl3d/03-disappeared.mp3" download>⬇</a></div>
-            <div class="track"><button onclick="playTrack('assets/music/01-n0t-s3lf-t1tl3d/04-kickflip.mp3', this)">▶</button> 04 Kickflip <a href="assets/music/01-n0t-s3lf-t1tl3d/04-kickflip.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/01-outlier.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 01 Outlier <a href="assets/music/03-unfamiliarity/01-outlier.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/02-nothing-could-be-something.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 02 Nothing Could Be Something <a href="assets/music/03-unfamiliarity/02-nothing-could-be-something.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/03-holding-hands-through-rubber-gloves.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 03 Holding Hands Through Rubber Gloves <a href="assets/music/03-unfamiliarity/03-holding-hands-through-rubber-gloves.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/04-lenny-your-shoes-are-too-small.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 04 Lenny, Your Shoes Are Too Small <a href="assets/music/03-unfamiliarity/04-lenny-your-shoes-are-too-small.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/05-text-about-the-weekend.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 05 Text About The Weekend <a href="assets/music/03-unfamiliarity/05-text-about-the-weekend.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/06-i-hate-you-but-happy-birthday.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 06 I Hate You, But Happy Birthday <a href="assets/music/03-unfamiliarity/06-i-hate-you-but-happy-birthday.mp3" download>⬇</a></div>
+            <div class="track"><button onclick="playTrack('assets/music/03-unfamiliarity/07-i-hope-you-think-of-me.mp3', this, 'assets/artwork/unfamiliarity.jpg')">▶</button> 07 I Hope You Think Of Me <a href="assets/music/03-unfamiliarity/07-i-hope-you-think-of-me.mp3" download>⬇</a></div>
         </div>
     </div>
 
     <!-- Sticky Music Player -->
     <div class="sticky-player">
-        <button id="playPauseBtn">▶</button>
-        <span id="trackTitle">No track playing</span>
-        <input type="range" id="progress" value="0" min="0" max="100">
-        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+        <div class="track-info">
+            <img id="trackArtwork" src="" alt="Artwork" hidden>
+            <span id="trackTitle">No track playing</span>
+        </div>
+        <div class="controls">
+            <button id="prevBtn">⏮</button>
+            <button id="playPauseBtn">▶</button>
+            <button id="nextBtn">⏭</button>
+            <input type="range" id="progress" value="0" min="0" max="100">
+            <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+            <button id="shuffleBtn">🔀</button>
+            <button id="repeatBtn">🔁</button>
+        </div>
     </div>
 
     <script>
         let currentAudio = null;
         let currentButton = null;
+        let trackList = [];
+        let currentTrackIndex = -1;
+        let isShuffle = false;
+        let isRepeat = false;
+
         const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
         const trackTitle = document.getElementById('trackTitle');
+        const trackArtwork = document.getElementById('trackArtwork');
         const progress = document.getElementById('progress');
         const currentTimeEl = document.getElementById('currentTime');
         const durationEl = document.getElementById('duration');
+        const volume = document.getElementById('volume');
 
-        function playTrack(src, button) {
+        document.querySelectorAll('.track button').forEach((btn, index) => {
+            const src = btn.getAttribute('onclick').match(/'(.*?)'/)[1];
+            const artwork = btn.getAttribute('onclick').split(", '")[2].replace("')", "");
+            trackList.push({ src, btn, artwork });
+        });
+
+        function playTrack(src, button, artwork) {
+            currentTrackIndex = trackList.findIndex(track => track.src === src);
             if (!currentAudio) {
                 currentAudio = new Audio(src);
                 setupAudioEvents();
                 currentAudio.play();
-                updatePlayerUI(src);
+                updatePlayerUI(src, artwork);
                 if (currentButton) currentButton.innerText = "▶";
                 currentButton = button;
                 currentButton.innerText = "⏸";
@@ -135,7 +150,7 @@
                 currentAudio = new Audio(src);
                 setupAudioEvents();
                 currentAudio.play();
-                updatePlayerUI(src);
+                updatePlayerUI(src, artwork);
                 currentButton = button;
                 currentButton.innerText = "⏸";
             }
@@ -149,19 +164,41 @@
             });
 
             currentAudio.addEventListener('ended', () => {
-                if (currentButton) currentButton.innerText = "▶";
-                playPauseBtn.innerText = "▶";
-                trackTitle.innerText = "No track playing";
-                progress.value = 0;
-                currentAudio = null;
-                currentButton = null;
+                if (isRepeat) {
+                    currentAudio.currentTime = 0;
+                    currentAudio.play();
+                } else {
+                    playNextTrack();
+                }
+            });
+
+            volume.addEventListener('input', () => {
+                if (currentAudio) {
+                    currentAudio.volume = volume.value;
+                }
             });
         }
 
-        function updatePlayerUI(src) {
+        function updatePlayerUI(src, artwork) {
             const trackName = src.split('/').pop().replace(/-/g, ' ').replace('.mp3', '');
             trackTitle.innerText = trackName;
             playPauseBtn.innerText = "⏸";
+            trackArtwork.src = artwork;
+            trackArtwork.hidden = false;
+        }
+
+        function playNextTrack() {
+            let nextIndex = isShuffle ? Math.floor(Math.random() * trackList.length) : currentTrackIndex + 1;
+            if (nextIndex >= trackList.length) nextIndex = 0;
+            const nextTrack = trackList[nextIndex];
+            playTrack(nextTrack.src, nextTrack.btn, nextTrack.artwork);
+        }
+
+        function playPrevTrack() {
+            let prevIndex = isShuffle ? Math.floor(Math.random() * trackList.length) : currentTrackIndex - 1;
+            if (prevIndex < 0) prevIndex = trackList.length - 1;
+            const prevTrack = trackList[prevIndex];
+            playTrack(prevTrack.src, prevTrack.btn, prevTrack.artwork);
         }
 
         playPauseBtn.addEventListener('click', () => {
@@ -178,6 +215,19 @@
             }
         });
 
+        prevBtn.addEventListener('click', playPrevTrack);
+        nextBtn.addEventListener('click', playNextTrack);
+
+        shuffleBtn.addEventListener('click', () => {
+            isShuffle = !isShuffle;
+            shuffleBtn.style.color = isShuffle ? 'blue' : 'black';
+        });
+
+        repeatBtn.addEventListener('click', () => {
+            isRepeat = !isRepeat;
+            repeatBtn.style.color = isRepeat ? 'blue' : 'black';
+        });
+
         progress.addEventListener('input', () => {
             if (currentAudio) {
                 currentAudio.currentTime = (progress.value / 100) * currentAudio.duration;
@@ -192,4 +242,3 @@
     </script>
 </body>
 </html>
-
