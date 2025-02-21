@@ -8,6 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding-bottom: 100px; /* Space for the sticky player */
         }
         .album {
             margin-bottom: 50px;
@@ -26,6 +28,27 @@
         }
         .track button {
             margin-right: 10px;
+        }
+        /* Sticky player styles */
+        .sticky-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .sticky-player button {
+            margin-right: 10px;
+        }
+        .sticky-player input[type="range"] {
+            flex: 1;
+            margin: 0 10px;
         }
     </style>
 </head>
@@ -70,38 +93,101 @@
         </div>
     </div>
 
+    <!-- Sticky Music Player -->
+    <div class="sticky-player">
+        <button id="playPauseBtn">▶</button>
+        <span id="trackTitle">No track playing</span>
+        <input type="range" id="progress" value="0" min="0" max="100">
+        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+    </div>
+
     <script>
         let currentAudio = null;
         let currentButton = null;
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const trackTitle = document.getElementById('trackTitle');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
 
         function playTrack(src, button) {
             if (!currentAudio) {
                 currentAudio = new Audio(src);
+                setupAudioEvents();
                 currentAudio.play();
+                updatePlayerUI(src);
+                if (currentButton) currentButton.innerText = "▶";
                 currentButton = button;
                 currentButton.innerText = "⏸";
             } else if (currentAudio.src.includes(src)) {
                 if (currentAudio.paused) {
                     currentAudio.play();
                     currentButton.innerText = "⏸";
+                    playPauseBtn.innerText = "⏸";
                 } else {
                     currentAudio.pause();
                     currentButton.innerText = "▶";
+                    playPauseBtn.innerText = "▶";
                 }
             } else {
                 currentAudio.pause();
-                currentButton.innerText = "▶";
+                if (currentButton) currentButton.innerText = "▶";
                 currentAudio = new Audio(src);
+                setupAudioEvents();
                 currentAudio.play();
+                updatePlayerUI(src);
                 currentButton = button;
                 currentButton.innerText = "⏸";
             }
+        }
 
-            currentAudio.onended = function () {
+        function setupAudioEvents() {
+            currentAudio.addEventListener('timeupdate', () => {
+                progress.value = (currentAudio.currentTime / currentAudio.duration) * 100;
+                currentTimeEl.innerText = formatTime(currentAudio.currentTime);
+                durationEl.innerText = formatTime(currentAudio.duration);
+            });
+
+            currentAudio.addEventListener('ended', () => {
                 if (currentButton) currentButton.innerText = "▶";
+                playPauseBtn.innerText = "▶";
+                trackTitle.innerText = "No track playing";
+                progress.value = 0;
                 currentAudio = null;
                 currentButton = null;
-            };
+            });
+        }
+
+        function updatePlayerUI(src) {
+            const trackName = src.split('/').pop().replace(/-/g, ' ').replace('.mp3', '');
+            trackTitle.innerText = trackName;
+            playPauseBtn.innerText = "⏸";
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (currentAudio) {
+                if (currentAudio.paused) {
+                    currentAudio.play();
+                    playPauseBtn.innerText = "⏸";
+                    if (currentButton) currentButton.innerText = "⏸";
+                } else {
+                    currentAudio.pause();
+                    playPauseBtn.innerText = "▶";
+                    if (currentButton) currentButton.innerText = "▶";
+                }
+            }
+        });
+
+        progress.addEventListener('input', () => {
+            if (currentAudio) {
+                currentAudio.currentTime = (progress.value / 100) * currentAudio.duration;
+            }
+        });
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
     </script>
 </body>
