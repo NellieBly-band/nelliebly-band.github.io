@@ -110,6 +110,18 @@
             max-height: 400px; /* Adjust the max-height as needed */
             width: auto;
             max-width: 80%; /* Ensure the logo is responsive */
+ 	}
+        .social-media {
+            position: absolute;
+            top: 300px; /* Adjust as needed to position the social media icons */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .social-media a img {
+            width: 48px; /* Adjust the size as needed */
+            height: auto;
         }
         @media (max-width: 768px) {
             .logo-image {
@@ -131,6 +143,14 @@
   <header>
     <img src="assets/images/header.png" alt="Nellie Bly Band" class="header-image">
     <img src="assets/images/logo.png" alt="Nellie Bly Logo" class="logo-image">
+    <div class="social-media">
+        <a href="https://open.spotify.com/artist/0WzQikoS3ofPxH8coNg3HX" target="_blank"><img src="assets/icons/spotify.png" alt="Spotify"></a>
+        <a href="https://music.apple.com/us/artist/nellie-bly/1589629463" target="_blank"><img src="assets/icons/apple.png" alt="Apple"></a>
+        <a href="https://www.instagram.com/nellieblyband/" target="_blank"><img src="assets/icons/instagram.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/officialnelliebly" target="_blank"><img src="assets/icons/facebook.png" alt="Facebook"></a>
+        <a href="https://www.youtube.com/@nellieblyband" target="_blank"><img src="assets/icons/youtube.png" alt="YouTube"></a>
+        <a href="https://nellie-bly-merch.myshopify.com/" target="_blank"><img src="assets/icons/shop.png" alt="Shopify"></a>
+    </div>
   </header>
   <h1>Nellie Bly</h1>
 </body>
