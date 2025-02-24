@@ -86,34 +86,36 @@
   <style>
     header {
       width: 100%;
-      text-align: center;
+      position: relative;
       background-color: #000;
       padding: 10px 0;
     }
 
-    .header-image, .logo-image {
-      max-width: 100%;
+    .header-image {
+      width: 100%;
       height: auto;
       display: block;
-      margin: 0 auto; /* Center the images horizontally */
     }
 
     .logo-image {
-      height: 300px; /* Adjust the height as needed */
-      margin-bottom: 20px; /* Space between logo and header image */
+      position: absolute;
+      top: 200px; /* Adjust as needed to position the logo vertically */
+      left: 50%;
+      transform: translateX(-50%); /* Center the logo horizontally */
+      height: 50px; /* Adjust the height as needed */
     }
 
     h1 {
       text-align: center;
       color: white;
-      margin-top: 20px;  /* Adds some spacing between the header and the title */
+      margin-top: 200px;  /* Adds some spacing between the header and the title */
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="assets/images/logo.png" alt="Nellie Bly Logo" class="logo-image">
     <img src="assets/images/header.png" alt="Nellie Bly Band" class="header-image">
+    <img src="assets/images/logo.png" alt="Nellie Bly Logo" class="logo-image">
   </header>
 
   <h1>Nellie Bly</h1>
