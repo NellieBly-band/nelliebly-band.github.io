@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Calendar</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="assets/images/logo.png" alt="Nellie Bly Band Logo"> <!-- Logo as a button to the home page -->
+        </a>
+        <h1>Show Calendar</h1>
+    </header>
+    <main>
+        <div id="calendar-container">
+            <ul id="show-list">
+                <!-- Show dates will be populated here -->
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 NellieBly-band</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var shows = [
+                { date: '2025-02-28', venue: 'The Nest' },
+                { date: '2025-03-23', venue: 'Gavin's House' },
+                // Add more shows here
+            ];
 
+            var showList = document.getElementById('show-list');
+            
+            shows.forEach(function(show) {
+                var listItem = document.createElement('li');
+                listItem.textContent = `${show.date}: ${show.venue}`;
+                showList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>
