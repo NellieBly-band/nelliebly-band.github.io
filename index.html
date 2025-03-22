@@ -91,6 +91,13 @@
         .track-list button {
             margin-right: 10px;
         }
+        .time {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 400px;
+            margin-top: -10px;
+        }
     </style>
 </head>
 <body>
@@ -127,8 +134,11 @@
                 <button onclick="prevTrack('unfamiliarity')">⏮️</button>
                 <button onclick="playPause('unfamiliarity')">▶️/⏸️</button>
                 <button onclick="nextTrack('unfamiliarity')">⏭️</button>
-                <button onclick="shuffle('unfamiliarity')">🔀</button>
                 <input type="range" id="unfamiliarity-progress" value="0" min="0" max="100">
+            </div>
+            <div class="time">
+                <span id="unfamiliarity-current-time">0:00</span>
+                <span id="unfamiliarity-total-time">0:00</span>
             </div>
             <audio id="unfamiliarity-audio" src="" ontimeupdate="updateProgress('unfamiliarity')" onended="nextTrack('unfamiliarity')"></audio>
         </div>
@@ -151,8 +161,11 @@
                 <button onclick="prevTrack('hereandnow')">⏮️</button>
                 <button onclick="playPause('hereandnow')">▶️/⏸️</button>
                 <button onclick="nextTrack('hereandnow')">⏭️</button>
-                <button onclick="shuffle('hereandnow')">🔀</button>
                 <input type="range" id="hereandnow-progress" value="0" min="0" max="100">
+            </div>
+            <div class="time">
+                <span id="hereandnow-current-time">0:00</span>
+                <span id="hereandnow-total-time">0:00</span>
             </div>
             <audio id="hereandnow-audio" src="" ontimeupdate="updateProgress('hereandnow')" onended="nextTrack('hereandnow')"></audio>
         </div>
@@ -174,8 +187,11 @@
                 <button onclick="prevTrack('notselftitled')">⏮️</button>
                 <button onclick="playPause('notselftitled')">▶️/⏸️</button>
                 <button onclick="nextTrack('notselftitled')">⏭️</button>
-                <button onclick="shuffle('notselftitled')">🔀</button>
                 <input type="range" id="notselftitled-progress" value="0" min="0" max="100">
+            </div>
+            <div class="time">
+                <span id="notselftitled-current-time">0:00</span>
+                <span id="notselftitled-total-time">0:00</span>
             </div>
             <audio id="notselftitled-audio" src="" ontimeupdate="updateProgress('notselftitled')" onended="nextTrack('notselftitled')"></audio>
         </div>
@@ -241,12 +257,7 @@
             playTrack(album);
         }
 
-        function shuffle(album) {
-            currentIndex = Math.floor(Math.random() * albums[album].length);
-            playTrack(album);
-        }
-
-        function playTrack(album, index) {
+        function playTrack(album, index = currentIndex) {
             currentIndex = index;
             if (currentAlbum && currentAlbum !== album) {
                 document.getElementById(`${currentAlbum}-audio`).pause();
@@ -255,12 +266,29 @@
             const audio = document.getElementById(`${album}-audio`);
             audio.src = albums[album][currentIndex];
             audio.play();
+            updateTotalTime(album);
         }
 
         function updateProgress(album) {
             const audio = document.getElementById(`${album}-audio`);
             const progress = document.getElementById(`${album}-progress`);
+            const currentTime = document.getElementById(`${album}-current-time`);
             progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+            currentTime.textContent = formatTime(audio.currentTime);
+        }
+
+        function updateTotalTime(album) {
+            const audio = document.getElementById(`${album}-audio`);
+            const totalTime = document.getElementById(`${album}-total-time`);
+            audio.onloadedmetadata = () => {
+                totalTime.textContent = formatTime(audio.duration);
+            };
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
         document.querySelectorAll('input[type="range"]').forEach(range => {
