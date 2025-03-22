@@ -12,10 +12,47 @@
             margin: 0;
             padding-bottom: 100px;
         }
+        header {
+            width: 100%;
+            position: relative;
+        }
+        .header-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .logo-image {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            max-height: 150px;
+            width: auto;
+        }
+        .social-media {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .social-media a img {
+            width: 40px;
+            height: 40px;
+            margin: 0 10px;
+        }
+        .banner {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
         .album {
             margin-bottom: 50px;
             border: 1px solid #ccc;
             padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,6 +80,7 @@
         .track-list {
             list-style-type: none;
             padding: 0;
+            width: 100%;
         }
         .track-list li {
             display: flex;
@@ -92,7 +130,7 @@
                 <button onclick="shuffle('unfamiliarity')">🔀</button>
                 <input type="range" id="unfamiliarity-progress" value="0" min="0" max="100">
             </div>
-            <audio id="unfamiliarity-audio" src="" ontimeupdate="updateProgress('unfamiliarity')"></audio>
+            <audio id="unfamiliarity-audio" src="" ontimeupdate="updateProgress('unfamiliarity')" onended="nextTrack('unfamiliarity')"></audio>
         </div>
         <ul class="track-list">
             <li><button onclick="playTrack('unfamiliarity', 0)">▶️</button> 01 Outlier</li>
@@ -116,7 +154,7 @@
                 <button onclick="shuffle('hereandnow')">🔀</button>
                 <input type="range" id="hereandnow-progress" value="0" min="0" max="100">
             </div>
-            <audio id="hereandnow-audio" src="" ontimeupdate="updateProgress('hereandnow')"></audio>
+            <audio id="hereandnow-audio" src="" ontimeupdate="updateProgress('hereandnow')" onended="nextTrack('hereandnow')"></audio>
         </div>
         <ul class="track-list">
             <li><button onclick="playTrack('hereandnow', 0)">▶️</button> 01 The Process</li>
@@ -139,7 +177,7 @@
                 <button onclick="shuffle('notselftitled')">🔀</button>
                 <input type="range" id="notselftitled-progress" value="0" min="0" max="100">
             </div>
-            <audio id="notselftitled-audio" src="" ontimeupdate="updateProgress('notselftitled')"></audio>
+            <audio id="notselftitled-audio" src="" ontimeupdate="updateProgress('notselftitled')" onended="nextTrack('notselftitled')"></audio>
         </div>
         <ul class="track-list">
             <li><button onclick="playTrack('notselftitled', 0)">▶️</button> 01 Scrapbook</li>
