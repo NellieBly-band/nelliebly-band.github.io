@@ -91,6 +91,10 @@
         .track-list button {
             margin-right: 10px;
         }
+	.track-list li.playing {
+  	  font-weight: bold;
+  	  color: #007BFF;
+	}
         .time {
             display: flex;
             justify-content: space-between;
@@ -270,6 +274,32 @@
             audio.play();
             updateTotalTime(album);
         }
+	function updatePlayingTrack(album) {
+   	 // Remove existing highlight for all tracks in the album
+  	  document.querySelectorAll(`.player[data-album="${album}"] .track-list li`).forEach((track, index) => {
+ 	       track.classList.remove('playing');
+ 	   });
+    
+	    // Highlight the currently playing track
+	    const currentTrack = document.querySelector(`.player[data-album="${album}"] .track-list li:nth-child(${currentIndex + 1})`);
+ 	   if (currentTrack) {
+  	      currentTrack.classList.add('playing');
+  	  }
+	}
+
+	// Modify playTrack function to include highlighting
+	function playTrack(album, index = currentIndex) {
+   	 currentIndex = index;
+  	  if (currentAlbum && currentAlbum !== album) {
+   	     document.getElementById(`${currentAlbum}-audio`).pause();
+ 	   }
+ 	   currentAlbum = album;
+  	  const audio = document.getElementById(`${album}-audio`);
+  	  audio.src = albums[album][currentIndex];
+   	 audio.play();
+  	  updateTotalTime(album);
+ 	   updatePlayingTrack(album); // Call the new function here
+	}
 
         function updateProgress(album) {
             const audio = document.getElementById(`${album}-audio`);
