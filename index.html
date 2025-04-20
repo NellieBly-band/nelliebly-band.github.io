@@ -21,26 +21,15 @@
             height: auto;
             display: block;
         }
-         .logo-image {
-        position: absolute;
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
-        max-height: 300px;
-        width: auto;
- 	}
-
-	/* Add this media query for smaller screens */
- 	@media (max-width: 768px) {
-  	   .logo-image {
-  	       max-height: 150px; /* Adjust this value as needed */
-		}
-	}
-
-  	@media (max-width: 480px) {
-   	  .logo-image {
-   	      max-height: 100px; /* Further adjust for very small screens */
-		}
+	.logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40vw; /* Use viewport width for responsiveness */
+            max-width: 500px; /* Maximum width for larger screens */
+            height: auto;
+            cursor: pointer;
  	}
         .social-media {
             display: flex;
