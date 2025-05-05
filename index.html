@@ -21,7 +21,7 @@
             height: auto;
             display: block;
         }
-	.logo-image {
+        .logo-image {
             position: absolute;
             top: 10%;
             left: 50%;
@@ -30,14 +30,14 @@
             max-width: 500px;
             height: auto;
             cursor: pointer;
- 	}
-    	@media (max-width: 600px) {
-        	.logo-image {
-		top: 2%;
-            	width: 60vw;
-            	max-width: 300px;
-        	}
-    	}
+        }
+        @media (max-width: 600px) {
+            .logo-image {
+                top: 2%;
+                width: 60vw;
+                max-width: 300px;
+            }
+        }
         .social-media {
             display: flex;
             justify-content: center;
@@ -72,45 +72,6 @@
             height: auto;
             margin-bottom: 20px;
         }
-        .player {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .controls {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .controls button, .controls input[type="range"] {
-            margin-right: 10px;
-        }
-        .track-list {
-            list-style-type: none;
-            padding: 0;
-            width: 100%;
-        }
-        .track-list li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 5px;
-        }
-        .track-list button {
-            margin-right: 10px;
-        }
-	.track-list li.playing {
-  	  font-weight: bold;
-  	  color: #007BFF;
-	}
-        .time {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 400px;
-            margin-top: -10px;
-        }
     </style>
 </head>
 <body>
@@ -140,194 +101,23 @@
     <!-- Album 1: Unfamiliarity -->
     <div class="album">
         <img src="assets/artwork/unfamiliarity.jpg" alt="Unfamiliarity Album Cover">
-        <div class="player" data-album="unfamiliarity">
-            <div class="controls">
-                <button onclick="prevTrack('unfamiliarity')">⏮️</button>
-                <button onclick="playPause('unfamiliarity')">▶️/⏸️</button>
-                <button onclick="nextTrack('unfamiliarity')">⏭️</button>
-                <input type="range" id="unfamiliarity-progress" value="0" min="0" max="100">
-            </div>
-            <div class="time">
-                <span id="unfamiliarity-current-time">0:00</span>
-                <span id="unfamiliarity-total-time">0:00</span>
-            </div>
-            <audio id="unfamiliarity-audio" src="" ontimeupdate="updateProgress('unfamiliarity')" onended="nextTrack('unfamiliarity')"></audio>
-        </div>
-        <ul class="track-list">
-            <li><button onclick="playTrack('unfamiliarity', 0)">▶️</button> 01 Outlier</li>
-            <li><button onclick="playTrack('unfamiliarity', 1)">▶️</button> 02 Nothing Could Be Something</li>
-            <li><button onclick="playTrack('unfamiliarity', 2)">▶️</button> 03 Holding Hands Through Rubber Gloves</li>
-            <li><button onclick="playTrack('unfamiliarity', 3)">▶️</button> 04 Lenny, Your Shoes Are Too Small</li>
-            <li><button onclick="playTrack('unfamiliarity', 4)">▶️</button> 05 Text About The Weekend</li>
-            <li><button onclick="playTrack('unfamiliarity', 5)">▶️</button> 06 I Hate You, But Happy Birthday</li>
-            <li><button onclick="playTrack('unfamiliarity', 6)">▶️</button> 07 I hope you think of me when you close your eyes</li>
-        </ul>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/6ybB1ea1AbnvQWUGnxRt0Y?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
-   <!-- Album 2: There's No Place Like Here and Now -->
+    <!-- Album 2: There's No Place Like Here and Now -->
     <div class="album">
         <img src="assets/artwork/theres-no-place-like-here-and-now.jpg" alt="There's No Place Like Here and Now Album Cover">
-        <div class="player" data-album="hereandnow">
-            <div class="controls">
-                <button onclick="prevTrack('hereandnow')">⏮️</button>
-                <button onclick="playPause('hereandnow')">▶️/⏸️</button>
-                <button onclick="nextTrack('hereandnow')">⏭️</button>
-                <input type="range" id="hereandnow-progress" value="0" min="0" max="100">
-            </div>
-            <div class="time">
-                <span id="hereandnow-current-time">0:00</span>
-                <span id="hereandnow-total-time">0:00</span>
-            </div>
-            <audio id="hereandnow-audio" src="" ontimeupdate="updateProgress('hereandnow')" onended="nextTrack('hereandnow')"></audio>
-        </div>
-        <ul class="track-list">
-            <li><button onclick="playTrack('hereandnow', 0)">▶️</button> 01 The Process</li>
-            <li><button onclick="playTrack('hereandnow', 1)">▶️</button> 02 There's No Place Like Here and Now</li>
-            <li><button onclick="playTrack('hereandnow', 2)">▶️</button> 03 Monday 10:39 PM</li>
-            <li><button onclick="playTrack('hereandnow', 3)">▶️</button> 04 Everything's Going In Weird Directions</li>
-            <li><button onclick="playTrack('hereandnow', 4)">▶️</button> 05 My Happy Song</li>
-            <li><button onclick="playTrack('hereandnow', 5)">▶️</button> 06 Summer Scars</li>
-        </ul>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/4jVQelb9jVZU5znxXpoDWC?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
     <!-- Album 3: n0t-s3lf-t1tl3d -->
     <div class="album">
         <img src="assets/artwork/n0t-s3lf-t1tl3d.jpg" alt="n0t-s3lf-t1tl3d Album Cover">
-        <div class="player" data-album="notselftitled">
-            <div class="controls">
-                <button onclick="prevTrack('notselftitled')">⏮️</button>
-                <button onclick="playPause('notselftitled')">▶️/⏸️</button>
-                <button onclick="nextTrack('notselftitled')">⏭️</button>
-                <input type="range" id="notselftitled-progress" value="0" min="0" max="100">
-            </div>
-            <div class="time">
-                <span id="notselftitled-current-time">0:00</span>
-                <span id="notselftitled-total-time">0:00</span>
-            </div>
-            <audio id="notselftitled-audio" src="" ontimeupdate="updateProgress('notselftitled')" onended="nextTrack('notselftitled')"></audio>
-        </div>
-        <ul class="track-list">
-            <li><button onclick="playTrack('notselftitled', 0)">▶️</button> 01 Scrapbook</li>
-            <li><button onclick="playTrack('notselftitled', 1)">▶️</button> 02 52 Backwards</li>
-            <li><button onclick="playTrack('notselftitled', 2)">▶️</button> 03 Disappeared</li>
-            <li><button onclick="playTrack('notselftitled', 3)">▶️</button> 04 Kickflip</li>
-        </ul>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/4lC2AVTwHtdOsqGF6dKLxe?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
     <footer>
         <p>For booking, contact our official <a href="mailto:0nellieshere@gmail.com">e-mail</a></p>
     </footer>
-
-    <script>
-        const albums = {
-            unfamiliarity: [
-                'assets/music/03-unfamiliarity/01-outlier.mp3',
-                'assets/music/03-unfamiliarity/02-nothing-could-be-something.mp3',
-                'assets/music/03-unfamiliarity/03-holding-hands-through-rubber-gloves.mp3',
-                'assets/music/03-unfamiliarity/04-lenny-your-shoes-are-too-small.mp3',
-                'assets/music/03-unfamiliarity/05-text-about-the-weekend.mp3',
-                'assets/music/03-unfamiliarity/06-i-hate-you-but-happy-birthday.mp3',
-                'assets/music/03-unfamiliarity/07-i-hope-you-think-of-me.mp3'
-            ],
-            hereandnow: [
-                'assets/music/02-theres-no-place-like-here-and-now/01-the-process.mp3',
-                'assets/music/02-theres-no-place-like-here-and-now/02-theres-no-place-like-here-and-now.mp3',
-                'assets/music/02-theres-no-place-like-here-and-now/03-monday-1039-pm.mp3',
-                'assets/music/02-theres-no-place-like-here-and-now/04-everythings-going-in-weird-directions.mp3',
-                'assets/music/02-theres-no-place-like-here-and-now/05-my-happy-song.mp3',
-                'assets/music/02-theres-no-place-like-here-and-now/06-summer-scars.mp3'
-            ],
-            notselftitled: [
-                'assets/music/01-n0t-s3lf-t1tl3d/01-scrapbook.mp3',
-                'assets/music/01-n0t-s3lf-t1tl3d/02-52-backwards.mp3',
-                'assets/music/01-n0t-s3lf-t1tl3d/03-disappeared.mp3',
-                'assets/music/01-n0t-s3lf-t1tl3d/04-kickflip.mp3'
-            ]
-        };
-
-        let currentAlbum = null;
-        let currentIndex = 0;
-
-        function playPause(album) {
-            if (currentAlbum && currentAlbum !== album) {
-                document.getElementById(`${currentAlbum}-audio`).pause();
-            }
-            currentAlbum = album;
-            const audio = document.getElementById(`${album}-audio`);
-            if (audio.paused) {
-                audio.src = albums[album][currentIndex];
-                audio.play();
-            } else {
-                audio.pause();
-            }
-        }
-
-        function nextTrack(album) {
-            currentIndex = (currentIndex + 1) % albums[album].length;
-            playTrack(album);
-        }
-
-        function prevTrack(album) {
-            currentIndex = (currentIndex - 1 + albums[album].length) % albums[album].length;
-            playTrack(album);
-        }
-
-	function updatePlayingTrack(album) {
-   	 // Remove existing highlight for all tracks in the album
-  	  document.querySelectorAll(`.player[data-album="${album}"] .track-list li`).forEach((track, index) => {
- 	       track.classList.remove('playing');
- 	   });
-    
-	    // Highlight the currently playing track
-	    const currentTrack = document.querySelector(`.player[data-album="${album}"] .track-list li:nth-child(${currentIndex + 1})`);
- 	   if (currentTrack) {
-  	      currentTrack.classList.add('playing');
-  	  }
-	}
-
-	// Modify playTrack function to include highlighting
-	function playTrack(album, index = currentIndex) {
-   	 currentIndex = index;
-  	  if (currentAlbum && currentAlbum !== album) {
-   	     document.getElementById(`${currentAlbum}-audio`).pause();
- 	   }
- 	   currentAlbum = album;
-  	  const audio = document.getElementById(`${album}-audio`);
-  	  audio.src = albums[album][currentIndex];
-   	 audio.play();
-  	  updateTotalTime(album);
- 	   updatePlayingTrack(album); // Call the new function here
-	}
-
-        function updateProgress(album) {
-            const audio = document.getElementById(`${album}-audio`);
-            const progress = document.getElementById(`${album}-progress`);
-            const currentTime = document.getElementById(`${album}-current-time`);
-            progress.value = (audio.currentTime / audio.duration) * 100 || 0;
-            currentTime.textContent = formatTime(audio.currentTime);
-        }
-
-        function updateTotalTime(album) {
-            const audio = document.getElementById(`${album}-audio`);
-            const totalTime = document.getElementById(`${album}-total-time`);
-            audio.onloadedmetadata = () => {
-                totalTime.textContent = formatTime(audio.duration);
-            };
-        }
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-
-        document.querySelectorAll('input[type="range"]').forEach(range => {
-            range.addEventListener('input', function() {
-                const album = this.id.split('-')[0];
-                const audio = document.getElementById(`${album}-audio`);
-                audio.currentTime = (this.value / 100) * audio.duration;
-            });
-        });
-    </script>
 </body>
 </html>
