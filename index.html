@@ -1,291 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nellie Bly - Music & Tour</title>
-  <link rel="stylesheet" href="player/player-styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nellie Bly — Official</title>
+
+  <!-- Social rail styles (self-contained so you can copy/paste a single file) -->
   <style>
-    :root{
-      --max-width:1200px;
-      --gap:20px;
-      --page-bg: #000;
-      --panel-bg: #0a0a0a;
-      --panel-border: #222;
-      --text-color: #fff;
-      --muted: #cfcfcf;
-      --footer-bg: #000;
-      --footer-color: #fff;
-      --link-color: #fff;
+    /* -------------------------
+       Social rail CSS (desktop fixed + mobile inline)
+       ------------------------- */
+    :root {
+      --rail-left-inset: 6px; /* small inset from left edge */
+      --rail-max-size: 64px;
+      --rail-min-size: 36px;
     }
 
-    /* Page */
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0 12px 60px;
-      background: var(--page-bg);
-      color: var(--text-color);
-      -webkit-font-smoothing:antialiased;
+    /* Base / shared */
+    .social-rail {
+      pointer-events: auto;
+      font-family: inherit;
     }
 
-    a { color: var(--link-color); }
-
-    header {
-      width: 100%;
-      position: relative;
-      margin-bottom: 10px;
+    .social-rail__nav {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(6px, 1.6vh, 12px);
+      padding: 6px;
+      align-items: center;
     }
 
-    .header-image {
+    .social-rail__link {
+      display: inline-block;
+      width: clamp(var(--rail-min-size), 6.5vw, var(--rail-max-size));
+      height: auto;
+      line-height: 0;
+      transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, filter 180ms ease;
+      -webkit-tap-highlight-color: transparent;
+      will-change: transform;
+    }
+
+    .social-rail__link img {
       width: 100%;
       height: auto;
       display: block;
-      max-height: 360px;
-      object-fit: cover;
+      object-fit: contain;
+      border-radius: 10%;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+      transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, filter 180ms ease;
     }
 
-    .logo-image {
-      position: absolute;
-      top: 8%;
-      left: 50%;
-      transform: translate(-50%, 0);
-      width: 40vw;
-      max-width: 500px;
-      height: auto;
-      cursor: pointer;
+    /* Hover & focus: expand & nudge out */
+    .social-rail__link:hover img,
+    .social-rail__link:focus img {
+      transform: translateX(-8px) scale(1.12);
+      box-shadow: 0 18px 28px rgba(0,0,0,0.55);
+      filter: saturate(1.05);
+      outline: none;
     }
 
-    @media (max-width: 600px) {
-      .logo-image {
-        top: 2%;
-        width: 60vw;
-        max-width: 300px;
-      }
+    /* Desktop fixed rail at the very left, vertically centered */
+    .social-rail--fixed {
+      position: fixed;
+      left: var(--rail-left-inset);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
     }
 
-    main {
-      max-width: var(--max-width);
-      margin: 18px auto;
-      display: flex;
-      gap: var(--gap);
-      align-items: flex-start;
-      justify-content: center;
-      padding: 0 12px;
+    /* Inline rail: for small screens so it scrolls with the music/tour content */
+    .social-rail--inline {
+      display: none; /* shown on small screens */
+      position: relative;
+      margin-bottom: 8px;
     }
 
-    /* Two equal columns */
-    .column {
-      flex: 1 1 0;
-      min-width: 280px;
-      box-sizing: border-box;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      padding: 18px;
+    /* Small screens: hide fixed rail and show inline rail */
+    @media (max-width: 640px) {
+      .social-rail--fixed { display: none; }
+      .social-rail--inline { display: block; }
+      .social-rail__link { width: clamp(30px, 12vw, 48px); }
+    }
+
+    /* Focus outline for keyboard users */
+    .social-rail__link:focus {
+      outline: 3px solid rgba(255,255,255,0.12);
+      outline-offset: 3px;
       border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      color: var(--text-color);
     }
 
-    .column h2{
-      margin: 6px 0 12px;
-      font-size: 1.25rem;
-      color: var(--text-color);
+    /* Simple page layout styles (basic) */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.35;
+      color: #eee;
+      background: #0b0b0b;
     }
+    header { padding: 28px 20px; text-align: center; background: linear-gradient(180deg,#0f0f0f,#080808); }
+    header h1 { margin: 0; font-size: 1.8rem; color: #fff; }
+    main { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
+    .music-section { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+    .music-content { flex: 1 1 560px; min-width: 280px; }
+    .tour-content { flex: 0 0 320px; min-width:220px; background: rgba(255,255,255,0.02); padding:12px; border-radius:8px; }
 
-    /* Make the widgets fill their column but allow inline iframe heights */
-    .widget {
-      width: 100%;
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      position: relative;
-      box-sizing: border-box;
-    }
-
-    /* Default iframe styling; do not force height so inline heights work (Bandcamp embeds keep their supplied heights) */
-    .widget iframe, .widget .embed {
-      width: 100%;
-      border: 0;
-      display: block;
-      background: transparent;
-    }
-
-    /* Bandcamp specific embeds stacked */
-    .bandcamp-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .bandcamp-embed {
-      width: 100%;
-      border: 0;
-      display: block;
-      background: transparent;
-    }
-
-    /* Songkick container adjustments (let script size) */
-    .songkick-container {
-      width: 100%;
-      min-height: 300px;
-    }
-
-    /* Headings & text */
-    h1 { color: var(--text-color); margin-top: 8px; margin-bottom: 4px; }
-    p { color: var(--muted); margin: 0 0 14px; }
-
-    /* Footer with social icons and booking/email */
-    footer {
-      margin-top: 26px;
-      padding: 18px 12px;
-      background: var(--footer-bg);
-      color: var(--footer-color);
-    }
-
-    .footer-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .social-media {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .social-media a img {
-      width: 44px;
-      height: 44px;
-      display: block;
-    }
-
-    .booking {
-      font-size: 0.95rem;
-      text-align: left;
-      color: var(--text-color);
-    }
-
-    .booking a { color: var(--link-color); text-decoration: underline; }
-
-    /* Responsive layout: stack on smaller screens */
-    @media (max-width: 900px) {
-      main {
-        flex-direction: column;
-      }
-      .footer-inner {
-        flex-direction: column;
-        gap: 12px;
-        align-items: center;
-        text-align: center;
-      }
-      .booking { text-align: center; }
-    }
+    footer { padding: 18px 20px; text-align:center; color:#bdbdbd; background:#070707; }
+    .footer-gmail img { width:44px; height:auto; vertical-align:middle; }
   </style>
 </head>
 <body>
+
+  <!-- Fixed left social rail (desktop & large screens) -->
+  <div class="social-rail social-rail--fixed" aria-hidden="false">
+    <nav aria-label="Social links" class="social-rail__nav">
+      <!-- ORDER: bandcamp > youtube > spotify > itunes > instagram > tiktok > facebook -->
+      <a href="https://nelliebly.bandcamp.com/music" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Bandcamp">
+        <img src="/assets/icons/bandcamp.png" alt="Bandcamp">
+      </a>
+
+      <a href="https://www.youtube.com/@nellieblyband" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <img src="/assets/icons/youtube.png" alt="YouTube">
+      </a>
+
+      <a href="https://open.spotify.com/artist/0WzQikoS3ofPxH8coNg3HX?si=us2gskgCTB2LUKSSjt7PYw" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+        <img src="/assets/icons/spotify.png" alt="Spotify">
+      </a>
+
+      <a href="https://music.apple.com/us/artist/nellie-bly/1589629463" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="iTunes / Apple Music">
+        <img src="/assets/icons/itunes.png" alt="iTunes / Apple Music">
+      </a>
+
+      <a href="https://www.instagram.com/nellieblyband" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <img src="/assets/icons/instagram.png" alt="Instagram">
+      </a>
+
+      <a href="https://www.tiktok.com/@nellieblyofficial" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <img src="/assets/icons/tiktok.png" alt="TikTok">
+      </a>
+
+      <a href="https://www.facebook.com/officialnelliebly" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <img src="/assets/icons/facebook.png" alt="Facebook">
+      </a>
+    </nav>
+  </div>
+
   <header>
-    <img src="assets/images/header.png" alt="Nellie Bly Band header" class="header-image">
-    <img src="assets/images/logo.png" alt="Nellie Bly Logo" class="logo-image">
+    <h1>Nellie Bly — Official</h1>
+    <p style="margin-top:6px;color:#cfcfcf;">Music • Shows • News</p>
   </header>
 
-  <h1>Our Music & Tour Dates</h1>
-  <p>Music on the left — Tour dates on the right.</p>
+  <main>
+    <!-- Inline social rail (mobile) placed inside the music section so it scrolls with it -->
+    <section class="music-section" aria-labelledby="music-heading">
+      <!-- Mobile inline rail (hidden on desktop) -->
+      <div class="social-rail social-rail--inline" aria-hidden="false" style="margin-right:12px;">
+        <nav aria-label="Social links" class="social-rail__nav">
+          <a href="https://nelliebly.bandcamp.com/music" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Bandcamp">
+            <img src="/assets/icons/bandcamp.png" alt="Bandcamp">
+          </a>
 
-  <main aria-label="Music and tour dates">
-    <!-- Left column: Bandcamp music widgets (stacked) -->
-    <section class="column" aria-labelledby="music-heading">
-      <h2 id="music-heading">Music (Bandcamp)</h2>
-      <div class="widget" id="bandcamp-widget">
-        <div class="bandcamp-list" aria-live="polite">
-          <!-- First Bandcamp embed (track) -->
-          <iframe
-            class="bandcamp-embed"
-            style="border:0; width:100%; height:442px;"
-            src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/"
-            seamless
-            title="Bipolar Bi-Polar Bi Polar Bear by Nellie Bly on Bandcamp">
-            <a href="https://nelliebly.bandcamp.com/track/bipolar-bi-polar-bi-polar-bear">Bipolar Bi-Polar Bi Polar Bear by Nellie Bly</a>
-          </iframe>
+          <a href="https://www.youtube.com/@nellieblyband" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <img src="/assets/icons/youtube.png" alt="YouTube">
+          </a>
 
-          <!-- Second Bandcamp embed (album) -->
-          <iframe
-            class="bandcamp-embed"
-            style="border:0; width:100%; height:120px;"
-            src="https://bandcamp.com/EmbeddedPlayer/album=3026096112/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
-            seamless
-            title="Unfamiliarity by Nellie Bly on Bandcamp">
-            <a href="https://nelliebly.bandcamp.com/album/unfamiliarity">Unfamiliarity by Nellie Bly</a>
-          </iframe>
+          <a href="https://open.spotify.com/artist/0WzQikoS3ofPxH8coNg3HX?si=us2gskgCTB2LUKSSjt7PYw" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+            <img src="/assets/icons/spotify.png" alt="Spotify">
+          </a>
 
-          <!-- Third Bandcamp embed (album) -->
-          <iframe
-            class="bandcamp-embed"
-            style="border:0; width:100%; height:120px;"
-            src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
-            seamless
-            title="There's No Place Like Here, And Now by Nellie Bly on Bandcamp">
-            <a href="https://nelliebly.bandcamp.com/album/theres-no-place-like-here-and-now">There's No Place Like Here, And Now by Nellie Bly</a>
-          </iframe>
+          <a href="https://music.apple.com/us/artist/nellie-bly/1589629463" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="iTunes / Apple Music">
+            <img src="/assets/icons/itunes.png" alt="iTunes / Apple Music">
+          </a>
 
-          <!-- Fourth Bandcamp embed (album) -->
-          <iframe
-            class="bandcamp-embed"
-            style="border:0; width:100%; height:120px;"
-            src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
-            seamless
-            title="N0T S3LF T1TL3D by Nellie Bly on Bandcamp">
-            <a href="https://nelliebly.bandcamp.com/album/n0t-s3lf-t1tl3d">N0T S3LF T1TL3D by Nellie Bly</a>
-          </iframe>
+          <a href="https://www.instagram.com/nellieblyband" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <img src="/assets/icons/instagram.png" alt="Instagram">
+          </a>
+
+          <a href="https://www.tiktok.com/@nellieblyofficial" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <img src="/assets/icons/tiktok.png" alt="TikTok">
+          </a>
+
+          <a href="https://www.facebook.com/officialnelliebly" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <img src="/assets/icons/facebook.png" alt="Facebook">
+          </a>
+        </nav>
+      </div>
+
+      <!-- Music content (example placeholder) -->
+      <div class="music-content">
+        <h2 id="music-heading">Music</h2>
+        <p>Featured release and embedded player(s) go here. This column represents the main music area — the fixed social rail will sit at the far left of the viewport on desktop. On phones, the inline rail above will scroll naturally with the music.</p>
+
+        <!-- Example embedded Bandcamp (replace with your real embed if you use it) -->
+        <div style="margin-top:12px;">
+          <a href="https://nelliebly.bandcamp.com/music" target="_blank" rel="noopener noreferrer" style="color:#9fb3ff;">Visit our Bandcamp page →</a>
         </div>
       </div>
-      <p style="font-size:0.9rem; margin:0;">Directly support us by donating on Bandcamp</p>
+
+      <!-- Tour / sidebar content (example) -->
+      <aside class="tour-content" aria-labelledby="tour-heading">
+        <h3 id="tour-heading">Tour Dates</h3>
+        <ul>
+          <li>2026-02-14 — Venue A — City</li>
+          <li>2026-03-05 — Venue B — City</li>
+          <li>2026-04-10 — Venue C — City</li>
+        </ul>
+      </aside>
     </section>
 
-    <!-- Right column: Songkick tour dates widget -->
-    <aside class="column" aria-labelledby="tour-heading">
-      <h2 id="tour-heading">Upcoming Tour Dates</h2>
-      <div class="widget songkick-container" id="songkick-widget" aria-live="polite">
-        <!-- Songkick widget (copied from what you provided) -->
-        <a href="https://www.songkick.com/artists/1532191" class="songkick-widget"
-           data-theme="dark" data-track-button="on" data-detect-style="off"
-           data-background-color="rgb(0,0,0,1)" data-font-color="rgb(255,255,255,1)"
-           data-button-bg-color="rgb(255,255,255,1)" data-button-text-color="rgb(0,0,0,1)"
-           data-locale="en" data-other-artists="on" data-share-button="on"
-           data-country-filter="on" data-rsvp="on" data-request-show="on"
-           data-past-events="off" data-past-events-offtour="off" data-remind-me="off"
-           style="display: none;"></a>
-        <script src="//widget-app.songkick.com/injector/1532191"></script>
-        <!-- End Songkick widget -->
-      </div>
-      <p style="font-size:0.9rem; margin:0;">Check out our socials for more info on touring dates!!!</p>
-    </aside>
+    <!-- Additional content sections -->
+    <section style="margin-top:28px;">
+      <h2>About</h2>
+      <p>Band bio and other information go here.</p>
+    </section>
+
   </main>
 
   <footer>
-    <div class="footer-inner">
-      <div class="booking">
-        <p style="margin:0 0 4px;">For booking, contact our official <a href="mailto:0nellieshere@gmail.com">e-mail</a></p>
-        <p style="margin:0;font-size:0.9rem;opacity:0.9;">© Nellie Bly</p>
-      </div>
-
-      <nav class="social-media" aria-label="Social media links" role="navigation">
-        <a href="https://open.spotify.com/artist/0WzQikoS3ofPxH8coNg3HX" target="_blank" rel="noopener"><img src="assets/icons/spotify.png" alt="Spotify"></a>
-        <a href="https://music.apple.com/us/artist/nellie-bly/1589629463" target="_blank" rel="noopener"><img src="assets/icons/apple.png" alt="Apple Music"></a>
-        <a href="https://www.instagram.com/nellieblyband/" target="_blank" rel="noopener"><img src="assets/icons/instagram.png" alt="Instagram"></a>
-        <a href="https://www.facebook.com/officialnelliebly" target="_blank" rel="noopener"><img src="assets/icons/facebook.png" alt="Facebook"></a>
-        <a href="https://www.youtube.com/@nellieblyband" target="_blank" rel="noopener"><img src="assets/icons/youtube.png" alt="YouTube"></a>
-      </nav>
-    </div>
+    <!-- Footer: gmail icon replaces textual footer email link as requested -->
+    <p>Contact</p>
+    <a class="footer-gmail" href="mailto:0nellieshere@gmail.com" aria-label="Email us" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/icons/gmail.png" alt="Email Nellie Bly">
+    </a>
+    <p style="margin-top:8px; font-size:0.9rem; color:#9a9a9a;">© Nellie Bly</p>
   </footer>
+
 </body>
 </html>
