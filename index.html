@@ -70,6 +70,17 @@
     body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.35; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .container { max-width:var(--page-max-width); margin:0 auto; padding: 0 18px; box-sizing:border-box; }
 
+    /* On small screens reserve space for the left rail so it does not overlap content.
+       We reduce the max-width of the centered container by the rail width + a small gutter.
+       This keeps the music & tour columns visually centered while avoiding overlap. */
+    @media (max-width:640px) {
+      .container {
+        max-width: calc(100% - (var(--rail-mobile-size) + 22px));
+        /* still keep small side padding */
+        padding: 0 14px;
+      }
+    }
+
     /* ---------- Hero (header image + centered logo) ---------- */
     .hero {
       position: relative;
@@ -124,13 +135,15 @@
 
     /* ---------- Main content (music & sidebar) ---------- */
     main { padding: 6px 0 32px; }
-    .music-section { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+    .music-section { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
+    /* center the two columns as a group; each column will have its size */
     .music-content { flex:1 1 560px; min-width:280px; }
     .sidebar { flex:0 0 320px; min-width:220px; background: var(--panel-bg); padding:12px; border-radius:8px; }
 
     /* Widgets area styling */
-    .widgets { margin-top:14px; display:flex; flex-direction:column; gap:12px; }
-    .widget { background: var(--panel-bg); padding:10px; border-radius:8px; color:#ddd; }
+    .widgets { margin-top:14px; display:flex; flex-direction:column; gap:12px; align-items:center; }
+    /* center widgets so the square remains visually centered with the sidebar */
+    .widget { background: var(--panel-bg); padding:10px; border-radius:8px; color:#ddd; width:100%; box-sizing:border-box; }
 
     /* ---------- Ensure first widget stays square at all sizes ---------- */
     .widget.square {
@@ -174,8 +187,8 @@
     .footer-gmail img { width:44px; height:auto; vertical-align:middle; }
 
     /* Small niceties */
-    h2, h3 { color:#fff; margin:0 0 8px 0; }
-    p { margin:0 0 12px 0; color:#d6d6d6; }
+    h2, h3 { color:#fff; margin:0 0 8px 0; text-align:center; }
+    p { margin:0 0 12px 0; color:#d6d6d6; text-align:center; }
     ul { margin:8px 0 0 18px; padding:0; color:#d0d0d0; }
   </style>
 </head>
@@ -230,9 +243,9 @@
       <!-- Main music column -->
       <div class="music-content" aria-live="polite">
         <h2 id="music-heading">MUSIC</h2>
-        <p>Featured releases, all of our music is free to dowload, please support us by donating on Bandcamp!</p>
+        <p>Featured releases, all of our music is free to download — please support us by donating on Bandcamp!</p>
 
-        <!-- WIDGETS: music widgets stack (top → bottom in the order you provide) -->
+        <!-- WIDGETS: music widgets stack (top → bottom in the order you provided) -->
         <div class="widgets" id="widgets">
 
           <!-- Widget #1 (SQUARE) - Bandcamp track (keeps 1:1 aspect ratio) -->
