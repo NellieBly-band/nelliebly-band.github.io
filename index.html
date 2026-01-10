@@ -11,6 +11,7 @@
       --rail-left-inset: 6px;
       --rail-max-size: 64px;
       --rail-min-size: 36px;
+      --rail-mobile-size: 44px;
       --page-max-width: 1100px;
       --bg: #0b0b0b;
       --panel-bg: rgba(255,255,255,0.02);
@@ -20,16 +21,48 @@
     /* ---------- Social rail styles ---------- */
     .social-rail { pointer-events: auto; font-family: inherit; }
     .social-rail__nav { display:flex; flex-direction:column; gap:clamp(6px,1.6vh,12px); padding:6px; align-items:center; }
-    .social-rail__link { display:inline-block; width:clamp(var(--rail-min-size),6.5vw,var(--rail-max-size)); line-height:0; transition:transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, filter .18s; -webkit-tap-highlight-color:transparent; will-change: transform; }
-    .social-rail__link img { width:100%; height:auto; display:block; object-fit:contain; border-radius:10%; box-shadow:0 8px 18px rgba(0,0,0,0.45); transition:transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, filter .18s; }
-    .social-rail__link:hover img, .social-rail__link:focus img { transform: translateX(-8px) scale(1.12); box-shadow: 0 18px 28px rgba(0,0,0,0.55); filter: saturate(1.05); outline:none; }
-    .social-rail--fixed { position: fixed; left: var(--rail-left-inset); top: 50%; transform: translateY(-50%); z-index: 9999; }
-    .social-rail--inline { display:none; position: relative; margin-bottom:8px; }
-    @media (max-width:640px) {
-      .social-rail--fixed { display:none; }
-      .social-rail--inline { display:block; }
-      .social-rail__link { width: clamp(30px,12vw,48px); }
+    .social-rail__link {
+      display:inline-block;
+      width: clamp(var(--rail-min-size), 6.5vw, var(--rail-max-size));
+      line-height:0;
+      transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, filter .18s;
+      -webkit-tap-highlight-color: transparent;
+      will-change: transform;
     }
+    .social-rail__link img { width:100%; height:auto; display:block; object-fit:contain; border-radius:10%; box-shadow:0 8px 18px rgba(0,0,0,0.45); transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, filter .18s; }
+
+    /* Hover & focus */
+    .social-rail__link:hover img,
+    .social-rail__link:focus img {
+      transform: translateX(-8px) scale(1.12);
+      box-shadow: 0 18px 28px rgba(0,0,0,0.55);
+      filter: saturate(1.05);
+      outline:none;
+    }
+
+    /* Fixed rail (always visible) */
+    .social-rail--fixed {
+      position: fixed;
+      left: var(--rail-left-inset);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+      pointer-events: auto;
+      touch-action: manipulation;
+    }
+
+    /* Inline rail kept in DOM if present but hidden to avoid pushing layout */
+    .social-rail--inline {
+      display: none !important;
+    }
+
+    /* Smaller icon sizes for narrow devices */
+    @media (max-width:640px) {
+      .social-rail__link { width: clamp(30px, 10vw, var(--rail-mobile-size)); }
+      .social-rail__link img { border-radius: 8%; }
+      .social-rail--fixed { left: 6px; } /* keep a small inset so it isn't flush to edge */
+    }
+
     .social-rail__link:focus { outline:3px solid rgba(255,255,255,0.12); outline-offset:3px; border-radius:8px; }
 
     /* ---------- Page layout ---------- */
@@ -57,7 +90,6 @@
       text-align:center;
     }
 
-    /* Header image */
     .hero-img {
       width:100%;
       height:auto;
@@ -66,7 +98,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
 
-    /* Logo overlaid centered on the hero image for large screens */
     .hero-logo {
       position: absolute;
       left: 50%;
@@ -76,11 +107,10 @@
       width: clamp(140px, 38%, 520px);
       height: auto;
       display:block;
-      pointer-events:none; /* logo isn't a link in overlay mode; change if needed */
+      pointer-events:none;
       filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
     }
 
-    /* On small screens, stack -- show header image then logo below it (so logo doesn't cover hero) */
     @media (max-width:720px) {
       .hero-logo {
         position: static;
@@ -103,19 +133,16 @@
     .widget { background: var(--panel-bg); padding:10px; border-radius:8px; color:#ddd; }
 
     /* ---------- Ensure first widget stays square at all sizes ---------- */
-    /* Wrapper that enforces a 1:1 aspect ratio */
     .widget.square {
       margin: 0 auto;
       width: 100%;
       max-width: 520px;       /* desktop max size for the square widget */
       aspect-ratio: 1 / 1;    /* keeps it square */
-      position: relative;     /* for absolutely positioned iframe inside */
+      position: relative;
       padding: 0;
       overflow: hidden;
       box-sizing: border-box;
     }
-
-    /* Make the embedded iframe fill the square wrapper */
     .widget.square iframe {
       position: absolute !important;
       inset: 0 !important;
@@ -124,13 +151,10 @@
       border: 0 !important;
       display: block;
     }
-
-    /* On very small screens, reduce max-width so it fits comfortably */
     @media (max-width:420px) {
       .widget.square { max-width: 360px; }
     }
 
-    /* Make other embedded elements responsive within widgets (do not break square widget) */
     .widget:not(.square) iframe,
     .widget:not(.square) embed,
     .widget:not(.square) object {
@@ -157,7 +181,7 @@
 </head>
 <body>
 
-  <!-- Fixed left social rail (desktop & large screens) -->
+  <!-- Fixed left social rail (always visible; does not push content) -->
   <div class="social-rail social-rail--fixed" aria-hidden="false">
     <nav aria-label="Social links" class="social-rail__nav">
       <!-- ORDER: bandcamp > youtube > spotify > itunes > instagram > tiktok > facebook -->
@@ -188,9 +212,7 @@
   <!-- HERO: centered header image with centered logo overlay (desktop) / stacked on mobile -->
   <header class="hero" role="banner" aria-label="Site header">
     <div class="hero-inner container">
-      <!-- Header image (replace path if different) -->
       <img class="hero-img" src="/assets/images/header.png" alt="Nellie Bly header image">
-      <!-- Logo centered on top for desktop; stacked on small screens -->
       <img class="hero-logo" src="/assets/images/logo.png" alt="Nellie Bly logo">
     </div>
   </header>
@@ -198,43 +220,22 @@
   <main class="container">
     <section class="music-section" aria-labelledby="music-heading">
 
-      <!-- Mobile inline rail (so it scrolls with the music/tour content) -->
-      <div class="social-rail social-rail--inline" aria-hidden="false" style="margin-right:12px;">
-        <nav aria-label="Social links" class="social-rail__nav">
-          <a href="https://nelliebly.bandcamp.com/music" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Bandcamp">
-            <img src="/assets/icons/bandcamp.png" alt="Bandcamp">
-          </a>
-          <a href="https://www.youtube.com/@nellieblyband" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-            <img src="/assets/icons/youtube.png" alt="YouTube">
-          </a>
-          <a href="https://open.spotify.com/artist/0WzQikoS3ofPxH8coNg3HX?si=us2gskgCTB2LUKSSjt7PYw" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-            <img src="/assets/icons/spotify.png" alt="Spotify">
-          </a>
-          <a href="https://music.apple.com/us/artist/nellie-bly/1589629463" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Apple Music">
-            <img src="/assets/icons/itunes.png" alt="Apple Music">
-          </a>
-          <a href="https://www.instagram.com/nellieblyband" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <img src="/assets/icons/instagram.png" alt="Instagram">
-          </a>
-          <a href="https://www.tiktok.com/@nellieblyofficial" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <img src="/assets/icons/tiktok.png" alt="TikTok">
-          </a>
-          <a href="https://www.facebook.com/officialnelliebly" class="social-rail__link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <img src="/assets/icons/facebook.png" alt="Facebook">
-          </a>
+      <!-- (inline rail element remains in DOM but hidden so it doesn't push layout) -->
+      <div class="social-rail social-rail--inline" aria-hidden="true" style="margin-right:12px;">
+        <nav aria-label="Social links" class="social-rail__nav" aria-hidden="true">
+          <a class="social-rail__link"><img src="/assets/icons/bandcamp.png" alt=""></a>
         </nav>
       </div>
 
       <!-- Main music column -->
       <div class="music-content" aria-live="polite">
-        <h2 id="music-heading">Music</h2>
-        <p>Featured releases and embedded players are below. On phones the music appears first — the tour dates are on the right and will follow as you scroll.</p>
+        <h2 id="music-heading">MUSIC</h2>
+        <p>Featured releases, all of our music is free to dowload, please support us by donating on Bandcamp!</p>
 
         <!-- WIDGETS: music widgets stack (top → bottom in the order you provide) -->
         <div class="widgets" id="widgets">
 
-          <!-- Widget #1 (SQUARE) - Bandcamp track -->
-          <!-- Note: the wrapper enforces a 1:1 aspect ratio; the iframe is made to fill that square. -->
+          <!-- Widget #1 (SQUARE) - Bandcamp track (keeps 1:1 aspect ratio) -->
           <div class="widget square" id="widget-1">
             <iframe src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless allowtransparency="true" title="Bipolar Bi-Polar Bi Polar Bear — Bandcamp player"></iframe>
           </div>
@@ -246,14 +247,14 @@
             </iframe>
           </div>
 
-          <!-- Widget #3 (Bandcamp album strip) -->
+          <!-- Widget #3 -->
           <div class="widget" id="widget-3">
             <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/theres-no-place-like-here-and-now">There's No Place Like Here, And Now by Nellie Bly</a>
             </iframe>
           </div>
 
-          <!-- Widget #4 (Bandcamp album strip) -->
+          <!-- Widget #4 -->
           <div class="widget" id="widget-4">
             <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/n0t-s3lf-t1tl3d">N0T S3LF T1TL3D by Nellie Bly</a>
@@ -266,11 +267,9 @@
 
       <!-- Sidebar / tour column -->
       <aside class="sidebar" aria-labelledby="tour-heading">
-        <h3 id="tour-heading">Tour Dates</h3>
+        <h3 id="tour-heading">SHOW DATES</h3>
         <ul>
-          <li>2026-02-14 — Venue A — City</li>
-          <li>2026-03-05 — Venue B — City</li>
-          <li>2026-04-10 — Venue C — City</li>
+          <li>We Livestream all of our shows on Instagram!!!</li>
         </ul>
 
         <!-- SONGKICK WIDGET -->
@@ -284,12 +283,12 @@
 
     <section style="margin-top:28px;">
       <h2 id="about-heading">About</h2>
-      <p>Band bio and other information go here.</p>
+      <p>Just 3 dudes making tunes</p>
     </section>
   </main>
 
   <footer id="contact-heading" class="container">
-    <p>Contact</p>
+    <p>Contact e-mail for Booking</p>
     <a class="footer-gmail" href="mailto:0nellieshere@gmail.com" aria-label="Email us" target="_blank" rel="noopener noreferrer">
       <img src="/assets/icons/gmail.png" alt="Email Nellie Bly">
     </a>
