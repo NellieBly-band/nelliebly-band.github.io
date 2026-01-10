@@ -16,6 +16,7 @@
       --bg: #0b0b0b;
       --panel-bg: rgba(255,255,255,0.02);
       --text: #eee;
+      --mobile-rail-gutter: 12px; /* space between rail and content on mobile */
     }
 
     /* ---------- Social rail styles ---------- */
@@ -69,17 +70,6 @@
     html,body { height:100%; }
     body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.35; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .container { max-width:var(--page-max-width); margin:0 auto; padding: 0 18px; box-sizing:border-box; }
-
-    /* On small screens reserve space for the left rail so it does not overlap content.
-       We reduce the max-width of the centered container by the rail width + a small gutter.
-       This keeps the music & tour columns visually centered while avoiding overlap. */
-    @media (max-width:640px) {
-      .container {
-        max-width: calc(100% - (var(--rail-mobile-size) + 22px));
-        /* still keep small side padding */
-        padding: 0 14px;
-      }
-    }
 
     /* ---------- Hero (header image + centered logo) ---------- */
     .hero {
@@ -135,14 +125,16 @@
 
     /* ---------- Main content (music & sidebar) ---------- */
     main { padding: 6px 0 32px; }
+
+    /* We want the music + sidebar to visually "hang" on the right side on small screens.
+       On wide screens we keep the normal centered layout. On small screens we offset the container
+       so that the left fixed rail never overlaps content. */
     .music-section { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
-    /* center the two columns as a group; each column will have its size */
     .music-content { flex:1 1 560px; min-width:280px; }
     .sidebar { flex:0 0 320px; min-width:220px; background: var(--panel-bg); padding:12px; border-radius:8px; }
 
     /* Widgets area styling */
     .widgets { margin-top:14px; display:flex; flex-direction:column; gap:12px; align-items:center; }
-    /* center widgets so the square remains visually centered with the sidebar */
     .widget { background: var(--panel-bg); padding:10px; border-radius:8px; color:#ddd; width:100%; box-sizing:border-box; }
 
     /* ---------- Ensure first widget stays square at all sizes ---------- */
@@ -180,6 +172,31 @@
     .widget iframe[style] { max-height: 80vh; }
     @media (max-width:420px) {
       .widget iframe[style] { min-height: 180px; }
+    }
+
+    /* ---------- Mobile behavior: hang content on the right so left rail never overlaps ---------- */
+    @media (max-width:640px) {
+      /* width available for content = viewport width minus rail width and gutter */
+      .container {
+        width: calc(100% - (var(--rail-mobile-size) + var(--mobile-rail-gutter)));
+        max-width: none;
+        margin: 0; /* we'll set an explicit left margin so the content sits to the right */
+        padding: 0 12px 0 12px;
+        box-sizing: border-box;
+      }
+
+      /* push the whole container to the right by the rail width + gutter */
+      /* this makes the visible content "hang" on the right side of the viewport */
+      .container.hang-right {
+        margin-left: calc(var(--rail-mobile-size) + var(--mobile-rail-gutter));
+      }
+
+      /* ensure music + sidebar area aligns to the right within the container */
+      .music-section { justify-content: flex-end; }
+
+      /* widgets keep aligned to the right so the visual column remains anchored */
+      .widgets { align-items: flex-end; }
+      .widget { width: 100%; }
     }
 
     /* Footer */
@@ -230,7 +247,9 @@
     </div>
   </header>
 
-  <main class="container">
+  <!-- Add class "hang-right" to the container on mobile so content shifts right and never overlaps the rail.
+       We add it by default here; it only affects small screens via the media query above. -->
+  <main class="container hang-right">
     <section class="music-section" aria-labelledby="music-heading">
 
       <!-- (inline rail element remains in DOM but hidden so it doesn't push layout) -->
