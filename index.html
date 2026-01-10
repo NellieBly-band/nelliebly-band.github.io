@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Nellie Bly — Official</title>
 
-  <!-- Social rail + basic page styles (self-contained) -->
+  <!-- Social rail + basic page + hero styles (self-contained) -->
   <style>
-    :root {
+    :root{
       --rail-left-inset: 6px;
       --rail-max-size: 64px;
       --rail-min-size: 36px;
+      --page-max-width: 1100px;
+      --bg: #0b0b0b;
+      --panel-bg: rgba(255,255,255,0.02);
+      --text: #eee;
     }
 
     /* ---------- Social rail styles ---------- */
@@ -28,46 +32,127 @@
     }
     .social-rail__link:focus { outline:3px solid rgba(255,255,255,0.12); outline-offset:3px; border-radius:8px; }
 
-    /* ---------- Page layout & header ---------- */
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.35; color:#eee; background:#0b0b0b; }
-    .topbar { background: linear-gradient(180deg,#0f0f0f,#080808); padding: 18px 20px; display:flex; align-items:center; gap:18px; justify-content:space-between; flex-wrap:wrap; }
-    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
-    .brand img { height:56px; width:auto; display:block; border-radius:6px; }
-    .brand h1 { margin:0; font-size:1.25rem; color:#fff; letter-spacing:0.6px; }
-    .brand small { display:block; margin-top:4px; color:#cfcfcf; font-size:0.85rem; }
+    /* ---------- Page layout ---------- */
+    html,body { height:100%; }
+    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.35; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    .container { max-width:var(--page-max-width); margin:0 auto; padding: 0 18px; box-sizing:border-box; }
 
-    nav.site-nav { display:flex; gap:12px; align-items:center; }
-    nav.site-nav a { color:#bfbfbf; text-decoration:none; font-size:0.95rem; padding:6px 8px; border-radius:6px; transition:background .12s; }
-    nav.site-nav a:hover { background: rgba(255,255,255,0.02); color:#fff; }
+    /* ---------- Hero (header image + centered logo) ---------- */
+    .hero {
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin: 20px auto;
+      width:100%;
+      box-sizing:border-box;
+    }
 
-    main { padding: 28px 20px; max-width:1100px; margin:0 auto; }
+    .hero .hero-inner {
+      width:100%;
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      position: relative;
+      display:block;
+      text-align:center;
+    }
+
+    /* Header image */
+    .hero-img {
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Logo overlaid centered on the hero image for large screens */
+    .hero-logo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      max-width: 56%;
+      width: clamp(140px, 38%, 520px);
+      height: auto;
+      display:block;
+      pointer-events:none; /* logo isn't a link in overlay mode; change if needed */
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+    }
+
+    /* On small screens, stack -- show header image then logo below it (so logo doesn't cover hero) */
+    @media (max-width:720px) {
+      .hero-logo {
+        position: static;
+        transform: none;
+        margin: 12px auto 0;
+        width: clamp(120px, 36%, 300px);
+        pointer-events:auto;
+      }
+      .hero-inner { padding: 0 6px; }
+    }
+
+    /* ---------- Main content (music & sidebar) ---------- */
+    main { padding: 6px 0 32px; }
     .music-section { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
     .music-content { flex:1 1 560px; min-width:280px; }
-    .sidebar { flex:0 0 320px; min-width:220px; background: rgba(255,255,255,0.02); padding:12px; border-radius:8px; }
+    .sidebar { flex:0 0 320px; min-width:220px; background: var(--panel-bg); padding:12px; border-radius:8px; }
 
     /* Widgets area styling */
     .widgets { margin-top:14px; display:flex; flex-direction:column; gap:12px; }
-    .widget { background: rgba(255,255,255,0.02); padding:10px; border-radius:8px; color:#ddd; }
+    .widget { background: var(--panel-bg); padding:10px; border-radius:8px; color:#ddd; }
 
-    /* Make embedded iframes and embeds responsive within widgets.
-       We let inline heights remain when set by the embed provider. */
-    .widget iframe,
-    .widget embed,
-    .widget object {
+    /* ---------- Ensure first widget stays square at all sizes ---------- */
+    /* Wrapper that enforces a 1:1 aspect ratio */
+    .widget.square {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 520px;       /* desktop max size for the square widget */
+      aspect-ratio: 1 / 1;    /* keeps it square */
+      position: relative;     /* for absolutely positioned iframe inside */
+      padding: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    /* Make the embedded iframe fill the square wrapper */
+    .widget.square iframe {
+      position: absolute !important;
+      inset: 0 !important;
       width: 100% !important;
-      max-width: 820px;
+      height: 100% !important;
+      border: 0 !important;
+      display: block;
+    }
+
+    /* On very small screens, reduce max-width so it fits comfortably */
+    @media (max-width:420px) {
+      .widget.square { max-width: 360px; }
+    }
+
+    /* Make other embedded elements responsive within widgets (do not break square widget) */
+    .widget:not(.square) iframe,
+    .widget:not(.square) embed,
+    .widget:not(.square) object {
+      width: 100% !important;
+      max-width: 100%;
       box-sizing: border-box;
       height: auto;
     }
-    /* Keep sensible min-heights where appropriate */
-    .widget iframe:not([height]):not([style]) { min-height: 200px; }
 
+    .widget iframe[style] { max-height: 80vh; }
     @media (max-width:420px) {
-      .widget iframe[style] { min-height: 200px; }
+      .widget iframe[style] { min-height: 180px; }
     }
 
-    footer { padding:18px 20px; text-align:center; color:#bdbdbd; background:#070707; margin-top:36px; }
+    /* Footer */
+    footer { padding:18px 0 36px; text-align:center; color:#bdbdbd; background:transparent; margin-top:36px; }
     .footer-gmail img { width:44px; height:auto; vertical-align:middle; }
+
+    /* Small niceties */
+    h2, h3 { color:#fff; margin:0 0 8px 0; }
+    p { margin:0 0 12px 0; color:#d6d6d6; }
+    ul { margin:8px 0 0 18px; padding:0; color:#d0d0d0; }
   </style>
 </head>
 <body>
@@ -100,27 +185,17 @@
     </nav>
   </div>
 
-  <!-- Header / topbar with logo and basic navigation -->
-  <header class="topbar" role="banner">
-    <a href="/" class="brand" aria-label="Nellie Bly home">
-      <!-- Replace the src below with your actual logo path (example: /assets/images/logo.png) -->
-      <img src="/assets/images/logo.png" alt="Nellie Bly logo" id="site-logo">
-      <div>
-        <h1>Nellie Bly</h1>
-        <small>Music • Shows • News</small>
-      </div>
-    </a>
-
-    <!-- Simple nav: replace/add items as needed -->
-    <nav class="site-nav" role="navigation" aria-label="Primary">
-      <a href="#music-heading">Music</a>
-      <a href="#tour-heading">Tour</a>
-      <a href="#about-heading">About</a>
-      <a href="#contact-heading">Contact</a>
-    </nav>
+  <!-- HERO: centered header image with centered logo overlay (desktop) / stacked on mobile -->
+  <header class="hero" role="banner" aria-label="Site header">
+    <div class="hero-inner container">
+      <!-- Header image (replace path if different) -->
+      <img class="hero-img" src="/assets/images/header.png" alt="Nellie Bly header image">
+      <!-- Logo centered on top for desktop; stacked on small screens -->
+      <img class="hero-logo" src="/assets/images/logo.png" alt="Nellie Bly logo">
+    </div>
   </header>
 
-  <main>
+  <main class="container">
     <section class="music-section" aria-labelledby="music-heading">
 
       <!-- Mobile inline rail (so it scrolls with the music/tour content) -->
@@ -151,35 +226,34 @@
       </div>
 
       <!-- Main music column -->
-      <div class="music-content">
+      <div class="music-content" aria-live="polite">
         <h2 id="music-heading">Music</h2>
-        <p>Featured release and embedded players go here. Replace the example content below with your real widgets or embeds.</p>
+        <p>Featured releases and embedded players are below. On phones the music appears first — the tour dates are on the right and will follow as you scroll.</p>
 
-        <!-- ---------------- WIDGETS: your widget embed HTML/JS goes here ---------------- -->
+        <!-- WIDGETS: music widgets stack (top → bottom in the order you provide) -->
         <div class="widgets" id="widgets">
 
-          <!-- Widget #1 (TOP) - Bandcamp track player -->
-          <div class="widget" id="widget-1">
-            <iframe style="border: 0; width: 350px; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless>
-              <a href="https://nelliebly.bandcamp.com/track/bipolar-bi-polar-bi-polar-bear">Bipolar Bi-Polar Bi Polar Bear by Nellie Bly</a>
-            </iframe>
+          <!-- Widget #1 (SQUARE) - Bandcamp track -->
+          <!-- Note: the wrapper enforces a 1:1 aspect ratio; the iframe is made to fill that square. -->
+          <div class="widget square" id="widget-1">
+            <iframe src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless allowtransparency="true" title="Bipolar Bi-Polar Bi Polar Bear — Bandcamp player"></iframe>
           </div>
 
-          <!-- Widget #2 - Bandcamp album strip: Unfamiliarity -->
+          <!-- Widget #2 (Bandcamp album strip) -->
           <div class="widget" id="widget-2">
             <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3026096112/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/unfamiliarity">Unfamiliarity by Nellie Bly</a>
             </iframe>
           </div>
 
-          <!-- Widget #3 - Bandcamp album strip: There's No Place Like Here, And Now -->
+          <!-- Widget #3 (Bandcamp album strip) -->
           <div class="widget" id="widget-3">
             <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/theres-no-place-like-here-and-now">There's No Place Like Here, And Now by Nellie Bly</a>
             </iframe>
           </div>
 
-          <!-- Widget #4 - Bandcamp album strip: N0T S3LF T1TL3D -->
+          <!-- Widget #4 (Bandcamp album strip) -->
           <div class="widget" id="widget-4">
             <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/n0t-s3lf-t1tl3d">N0T S3LF T1TL3D by Nellie Bly</a>
@@ -187,7 +261,7 @@
           </div>
 
         </div>
-        <!-- End widgets area -->
+        <!-- End widgets -->
       </div>
 
       <!-- Sidebar / tour column -->
@@ -199,13 +273,11 @@
           <li>2026-04-10 — Venue C — City</li>
         </ul>
 
-        <!-- SONGKICK WIDGET (keeps showing in sidebar) -->
+        <!-- SONGKICK WIDGET -->
         <div style="margin-top:12px;">
           <a href="https://www.songkick.com/artists/1532191" class="songkick-widget" data-theme="dark" data-track-button="on" data-detect-style="off" data-background-color="rgb(0,0,0,1)" data-font-color="rgb(255,255,255,1)" data-button-bg-color="rgb(255,255,255,1)" data-button-text-color="rgb(0,0,0,1)" data-locale="en" data-other-artists="on" data-share-button="on" data-country-filter="on" data-rsvp="on" data-request-show="on" data-past-events="off" data-past-events-offtour="off" data-remind-me="off" style="display: none;"></a>
           <script src='//widget-app.songkick.com/injector/1532191'></script>
         </div>
-        <!-- end Songkick widget -->
-
       </aside>
 
     </section>
@@ -214,10 +286,9 @@
       <h2 id="about-heading">About</h2>
       <p>Band bio and other information go here.</p>
     </section>
-
   </main>
 
-  <footer id="contact-heading">
+  <footer id="contact-heading" class="container">
     <p>Contact</p>
     <a class="footer-gmail" href="mailto:0nellieshere@gmail.com" aria-label="Email us" target="_blank" rel="noopener noreferrer">
       <img src="/assets/icons/gmail.png" alt="Email Nellie Bly">
@@ -225,6 +296,5 @@
     <p style="margin-top:8px; font-size:0.9rem; color:#9a9a9a;">© Nellie Bly</p>
   </footer>
 
-  <!-- Optional: any additional scripts can go here -->
 </body>
 </html>
