@@ -113,20 +113,21 @@
       filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
     }
 
+    /* ---------- Mobile: larger logo overlapping header bottom ---------- */
     @media (max-width:720px) {
-      /* Mobile: make logo larger and pull it up so it overlaps the bottom of the header */
+      /* Mobile: make logo much larger and pull it up so it overlaps header bottom */
       .hero-logo {
         position: static;
         transform: none;
-        margin: -48px auto 0;              /* negative top margin to overlap header bottom */
-        width: clamp(160px, 46%, 420px);   /* larger on phones */
+        margin: -110px auto 0;             /* increased negative margin to pull logo up */
+        width: clamp(300px, 72%, 720px);   /* almost double the previous mobile size */
         pointer-events:auto;
         z-index: 6;
       }
       .hero-inner { padding: 0 6px; }
 
       /* Make sure main content starts below the overlapping logo so it doesn't get covered */
-      main { padding-top: 56px; }
+      main { padding-top: 140px; } /* increase padding to account for larger logo overlap */
     }
 
     /* ---------- Main content (music & sidebar) ---------- */
