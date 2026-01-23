@@ -167,42 +167,18 @@
       .widget.square { max-width: 360px; }
     }
 
-    /* --------- UPDATED: Responsive horizontal album widgets ---------
-       Replace the previous .widget:not(.square) rules with a responsive
-       aspect-ratio based container so the Bandcamp strips keep the same
-       visual shape on phones as on desktop. This also forces the iframe
-       to absolutely fill the container, overriding inline heights. */
-    .widget:not(.square) {
-      position: relative;           /* create a stacking context for the iframe */
-      width: 100%;
-      padding: 0;                   /* remove internal padding (iframe will fill) */
-      box-sizing: border-box;
-      aspect-ratio: 6 / 1;          /* wide strip on desktop-like screens */
-      max-width: 520px;             /* keep same desktop max width as the square widget */
-      overflow: hidden;
-      border-radius: 8px;
-      background: var(--panel-bg);
-      color: #ddd;
-    }
-
-    /* Force the embedded player to fill the widget container (overrides inline styles) */
     .widget:not(.square) iframe,
     .widget:not(.square) embed,
     .widget:not(.square) object {
-      position: absolute !important;
-      inset: 0 !important;
       width: 100% !important;
-      height: 100% !important;
-      border: 0 !important;
-      display: block;
+      max-width: 100%;
+      box-sizing: border-box;
+      height: auto;
     }
 
-    /* Tweak for very small screens so the strip is a bit taller and readable */
+    .widget iframe[style] { max-height: 80vh; }
     @media (max-width:420px) {
-      .widget:not(.square) {
-        aspect-ratio: 4 / 1;    /* taller for small devices */
-        max-width: 360px;
-      }
+      .widget iframe[style] { min-height: 180px; }
     }
 
     /* ---------- Mobile behavior: hang content on the right so left rail never overlaps ---------- */
