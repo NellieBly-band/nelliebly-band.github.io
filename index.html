@@ -213,31 +213,6 @@
     h2, h3 { color:#fff; margin:0 0 8px 0; text-align:center; }
     p { margin:0 0 12px 0; color:#d6d6d6; text-align:center; }
     ul { margin:8px 0 0 18px; padding:0; color:#d0d0d0; }
-
-	/* Force the three non-square music widgets to a fixed, consistent size */
-	.widgets {
- 	 overflow-x: auto;               /* allow horizontal scrolling on narrow screens */
- 	 -webkit-overflow-scrolling: touch;
-	  gap: 12px;
-	  padding-bottom: 8px;
-	}
-
-	.widgets .widget:not(.square) {
-	  flex: 0 0 520px !important;     /* fixed width for each widget */
-	  width: 100%; max-width: 520px;
-	  height: 120px !important;       /* fixed height for each widget */
-	  max-width: none !important;
-	  box-sizing: border-box;
-	}
-
-	.widgets .widget:not(.square) iframe,
-	.widgets .widget:not(.square) embed,
-	.widgets .widget:not(.square) object {
-	  width: 100% !important;
-	  height: 100% !important;
-	  border: 0 !important;
-	  display: block;
-	}
   </style>
 </head>
 <body>
