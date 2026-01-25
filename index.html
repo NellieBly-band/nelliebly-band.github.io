@@ -238,7 +238,7 @@
       position: absolute;
       left: 50%;
       top: 80%;
-      transform: translateX(calc(var(--hero-logo-width) / 2 + 12px)) translateY(-50%);
+      transform: translateX(calc(var(--hero-logo-width) / 2 + 28px)) translateY(-50%);
       z-index: 7;
       pointer-events: auto;
       display: inline-block;
@@ -247,7 +247,7 @@
     /* store image: square, responsive up to 300px */
     .hero-store {
       display: block;
-      width: clamp(80px, 18vw, 300px); /* scales down on small screens, max 300px on desktop */
+      width: clamp(40px, 9vw, 150px); /* scales down on small screens, max 300px on desktop */
       aspect-ratio: 1 / 1;              /* keeps it square */
       object-fit: contain;
       border-radius: 10%;
@@ -269,15 +269,15 @@
         --hero-logo-width: clamp(300px, 72%, 720px);
       }
       .hero-logo { top: 72%; }
-      .hero-store { width: clamp(72px, 20vw, 300px); }
+      .hero-store { width: clamp(36px, 10vw, 150px); }
     }
 
     /* Very narrow screens tweak */
     @media (max-width:420px) {
       .hero-store-link {
-        transform: translateX(calc(var(--hero-logo-width) / 2 + 8px)) translateY(-50%);
+        transform: translateX(calc(var(--hero-logo-width) / 2 + 18px)) translateY(-50%);
       }
-      .hero-store { width: clamp(64px, 24vw, 220px); }
+      .hero-store { width: clamp(32px, 12vw, 110px); }
     }
 
     /* keep main spacing so large logo overlap doesn't cover content */
