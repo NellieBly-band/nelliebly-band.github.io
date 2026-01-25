@@ -30,7 +30,7 @@
       -webkit-tap-highlight-color: transparent;
       will-change: transform;
     }
-    .social-rail__link img { width:100%; height:auto; display:block; object-fit:contain; border-radius:10%; box-shadow:0 8px 18px rgba(0,0,0,0.45); transition: transform .18s cubic-bezier(.2,.9,.2,1),[...]
+    .social-rail__link img { width:100%; height:auto; display:block; object-fit:contain; border-radius:10%; box-shadow:0 8px 18px rgba(0,0,0,0.45); transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, filter .18s; }
 
     /* Hover & focus */
     .social-rail__link:hover img,
@@ -68,7 +68,7 @@
 
     /* ---------- Page layout ---------- */
     html,body { height:100%; }
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.35; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; [...]
+    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.35; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .container { max-width:var(--page-max-width); margin:0 auto; padding: 0 18px; box-sizing:border-box; }
 
     /* ---------- Hero (header image + centered logo) ---------- */
@@ -213,72 +213,6 @@
     h2, h3 { color:#fff; margin:0 0 8px 0; text-align:center; }
     p { margin:0 0 12px 0; color:#d6d6d6; text-align:center; }
     ul { margin:8px 0 0 18px; padding:0; color:#d0d0d0; }
-
-    /* --- Store button that stays to the RIGHT of the centered logo at all sizes --- */
-    /* Put this AFTER the existing .hero-logo and mobile rules so it overrides them. */
-
-    .hero-store-link {
-      position: absolute;
-      left: 50%;
-      top: 80%;
-      /* Move the store to the right of the centered logo by half the logo width + gap (12px).
-         This uses the same clamp() sizing as .hero-logo so it follows the logo size responsively. */
-      transform: translateX(calc(clamp(140px, 38%, 520px) / 2 + 12px)) translateY(-50%);
-      z-index: 7;
-      pointer-events: auto;
-      display: inline-block;
-    }
-
-    .hero-store {
-      display: block;
-      width: clamp(64px, 6.8vw, 120px);
-      height: auto;
-      border-radius: 10%;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.55);
-      transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, filter .18s;
-    }
-
-    .hero-store-link:hover .hero-store,
-    .hero-store-link:focus .hero-store {
-      transform: translateX(2px) scale(1.06); /* subtle hover nudge */
-      box-shadow: 0 18px 28px rgba(0,0,0,0.55);
-      filter: saturate(1.06);
-      outline: none;
-    }
-
-    /* Ensure the logo remains centered and absolute at all sizes (override any previous mobile rule
-       that set .hero-logo to position:static). We keep the larger mobile logo sizing you already used. */
-    .hero-logo {
-      position: absolute;
-      left: 50%;
-      top: 80%;
-      transform: translate(-50%,-50%);
-      max-width: 56%;
-      width: clamp(140px, 38%, 520px); /* same sizing used elsewhere */
-      height: auto;
-      display:block;
-      pointer-events: none;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
-      z-index: 6;
-    }
-
-    /* Mobile: scale the centered logo larger while keeping it absolute so the store can still sit to the right */
-    @media (max-width:720px) {
-      .hero-logo {
-        width: clamp(300px, 72%, 720px); /* match your mobile logo size */
-        top: 72%;                       /* tweak vertical alignment for the big mobile logo */
-      }
-
-      /* Make the store button slightly larger on small screens while keeping it to the right */
-      .hero-store {
-        width: clamp(80px, 22vw, 160px);
-      }
-
-      /* If you need more space, increase the gap by changing the "+ 12px" in the translateX(...) above. */
-    }
-
-    /* adjust main padding so large logo overlap still clears content (match or increase your existing value) */
-    main { padding-top: 140px; }
   </style>
 </head>
 <body>
@@ -315,9 +249,6 @@
   <header class="hero" role="banner" aria-label="Site header">
     <div class="hero-inner container">
       <img class="hero-img" src="/assets/images/header.png" alt="Nellie Bly header image">
-      <a class="hero-store-link" href="https://nellie-bly.printify.me/" target="_blank" rel="noopener noreferrer" aria-label="Store">
-        <img class="hero-store" src="/assets/images/store.png" alt="Store">
-      </a>
       <img class="hero-logo" src="/assets/images/logo.png" alt="Nellie Bly logo">
     </div>
   </header>
@@ -344,26 +275,26 @@
 
           <!-- Widget #1 (SQUARE) - Bandcamp track (keeps 1:1 aspect ratio) -->
           <div class="widget square" id="widget-1">
-            <iframe src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless allowtransparency="true" title="Bipolar [...]
+            <iframe src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless allowtransparency="true" title="Bipolar Bi-Polar Bi Polar Bear — Bandcamp player"></iframe>
           </div>
 
           <!-- Widget #2 (Bandcamp album strip) -->
           <div class="widget" id="widget-2">
-            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3026096112/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transp[...]
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3026096112/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/unfamiliarity">Unfamiliarity by Nellie Bly</a>
             </iframe>
           </div>
 
           <!-- Widget #3 -->
           <div class="widget" id="widget-3">
-            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transp[...]
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/theres-no-place-like-here-and-now">There's No Place Like Here, And Now by Nellie Bly</a>
             </iframe>
           </div>
 
           <!-- Widget #4 -->
           <div class="widget" id="widget-4">
-            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transpa[...]
+            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
               <a href="https://nelliebly.bandcamp.com/album/n0t-s3lf-t1tl3d">N0T S3LF T1TL3D by Nellie Bly</a>
             </iframe>
           </div>
@@ -381,7 +312,7 @@
 
         <!-- SONGKICK WIDGET -->
         <div style="margin-top:12px;">
-          <a href="https://www.songkick.com/artists/1532191" class="songkick-widget" data-theme="dark" data-track-button="on" data-detect-style="off" data-background-color="rgb(0,0,0,1)" data-font-col[...]
+          <a href="https://www.songkick.com/artists/1532191" class="songkick-widget" data-theme="dark" data-track-button="on" data-detect-style="off" data-background-color="rgb(0,0,0,1)" data-font-color="rgb(255,255,255,1)" data-button-bg-color="rgb(255,255,255,1)" data-button-text-color="rgb(0,0,0,1)" data-locale="en" data-other-artists="on" data-share-button="on" data-country-filter="on" data-rsvp="on" data-request-show="on" data-past-events="off" data-past-events-offtour="off" data-remind-me="off" style="display: none;"></a>
           <script src='//widget-app.songkick.com/injector/1532191'></script>
         </div>
       </aside>
