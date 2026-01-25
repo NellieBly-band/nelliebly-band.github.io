@@ -115,16 +115,22 @@
 
     /* ---------- Mobile: larger logo overlapping header bottom ---------- */
     @media (max-width:720px) {
+    /* mobile alignment tweak */
+    @media (max-width:720px) {
+      .hero-store { width: clamp(36px, 10vw, 150px); }
+      .hero-store-link { top: 72%; } /* keeps store vertically aligned with the logo on mobile */
+    }
       /* Mobile: make logo much larger and pull it up so it overlaps header bottom */
-      .hero-logo {
-        position: static;
-        transform: none;
-        margin: -110px auto 0;             /* increased negative margin to pull logo up */
-        width: clamp(300px, 72%, 720px);   /* almost double the previous mobile size */
-        pointer-events:auto;
-        z-index: 6;
-      }
-      .hero-inner { padding: 0 6px; }
+    .hero-logo {
+      position: absolute;
+      left: 50%;
+      top: 72%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      width: clamp(300px, 72%, 720px);
+      pointer-events: auto;
+      z-index: 6;
+    }      .hero-inner { padding: 0 6px; }
 
       /* Make sure main content starts below the overlapping logo so it doesn't get covered */
       main { padding-top: 140px; } /* increase padding to account for larger logo overlap */
