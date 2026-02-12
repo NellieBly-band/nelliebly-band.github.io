@@ -173,6 +173,37 @@
       .widget.square { max-width: 360px; }
     }
 
+     /* Small square grid for older releases: two per row on wider screens
+       Keep the grid the same max-width as the main square so it appears directly under it. */
+     .small-grid { display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; width:100%; max-width:520px; }
+    .widget.small {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      flex: 0 0 calc(50% - 12px);
+      max-width: 240px; /* about half the size of the main square */
+      width: 100%;
+    }
+    .widget.small iframe {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      border: 0 !important;
+      display: block;
+    }
+
+    /* On very narrow screens stack small squares to a single column so they remain readable */
+    @media (max-width:420px) {
+      .widget.small {
+        flex: 0 0 100%;
+        max-width: 360px;
+      }
+    }
+
     .widget:not(.square) iframe,
     .widget:not(.square) embed,
     .widget:not(.square) object {
@@ -317,30 +348,29 @@
         <div class="widgets" id="widgets">
 
           <!-- Widget #1 (SQUARE) - Bandcamp track (keeps 1:1 aspect ratio) -->
-          <div class="widget square" id="widget-1">
-            <iframe src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless allowtransparency="true" title="Bipolar Bi-Polar Bi Polar Bear — Bandcamp player"></iframe>
-          </div>
+            <div class="widget square" id="widget-1">
+              <iframe src="https://bandcamp.com/EmbeddedPlayer/track=219687614/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless allowtransparency="true" title="Bipolar Bi-Polar Bi Polar Bear — Bandcamp player"></iframe>
+            </div>
 
-          <!-- Widget #2 (Bandcamp album strip) -->
-          <div class="widget" id="widget-2">
-            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3026096112/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
-              <a href="https://nelliebly.bandcamp.com/album/unfamiliarity">Unfamiliarity by Nellie Bly</a>
-            </iframe>
-          </div>
+            <!-- Smaller square grid for other releases (two per row) -->
+            <div class="small-grid" aria-label="Other releases">
 
-          <!-- Widget #3 -->
-          <div class="widget" id="widget-3">
-            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
-              <a href="https://nelliebly.bandcamp.com/album/theres-no-place-like-here-and-now">There's No Place Like Here, And Now by Nellie Bly</a>
-            </iframe>
-          </div>
+              <!-- Widget #2 (small square) - Unfamiliarity -->
+              <div class="widget small" id="widget-2">
+                <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3026096112/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless style="border:0;" title="Unfamiliarity — Bandcamp player"></iframe>
+              </div>
 
-          <!-- Widget #4 -->
-          <div class="widget" id="widget-4">
-            <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless>
-              <a href="https://nelliebly.bandcamp.com/album/n0t-s3lf-t1tl3d">N0T S3LF T1TL3D by Nellie Bly</a>
-            </iframe>
-          </div>
+              <!-- Widget #3 (small square) - There's No Place Like Here, And Now (provided) -->
+              <div class="widget small" id="widget-3">
+                <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3317313395/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless style="border:0;" title="There's No Place Like Here, And Now — Bandcamp player"></iframe>
+              </div>
+
+              <!-- Widget #4 (small square) - placeholder for N0T S3LF T1TL3D -->
+              <div class="widget small" id="widget-4">
+                <iframe src="https://bandcamp.com/EmbeddedPlayer/album=406280984/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless style="border:0;" title="N0T S3LF T1TL3D — Bandcamp player"></iframe>
+              </div>
+
+            </div>
 
         </div>
         <!-- End widgets -->
